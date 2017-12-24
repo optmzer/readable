@@ -1,80 +1,128 @@
-body {
-  width: 80%;
-  align-self: center;
+/* Global */
+body, h1, h2, h3, p, a, ul {
+  margin: 0;
+  padding: 0;
 }
-
-.App {
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  background: #333;
+  color: #fff;
+  font-size: 1.1em;
+  line-height: 1.5;
   text-align: center;
 }
 
-.App-logo {
-  /* animation: App-logo-spin infinite 20s linear; */
-  height: 80px;
+h1, h2, h3 {
+  padding: 10px;
+}
+
+p {
+  padding: 10px;
+  text-align: justify;
+}
+
+a {
+  text-decoration: none;
+}
+
+a:hover {
+  color: #e8491d;
+}
+
+ul {
+  list-style: none;
+}
+
+.active {
+  background-color: #909090;
+  color: #e8491d;
+}
+/* Header */
+
+.App {
 }
 
 .App-header {
+  min-height: 70px;
+  background-color: #797979;
+  border-bottom: #e8491d 3px solid;
+
+}
+
+
+/* Navigation */
+.nav-bar {
   display: grid;
-  grid-template-rows: repeat(3, 1fr);
-  background-color: #222;
-  height: 150px;
-  padding: 20px;
-  color: white;
+  grid-template-columns: repeat(12, 1fr);
 }
 
 .App-title {
-  font-size: 1.5em;
-  /* animation: App-logo-spin infinite 20s linear; */
+  color: #e8491d;
+  grid-column: 1/2;
 }
 
-/* Navigation */
-
-.nav-bar ul {
-  style: none;
+ul {
+  margin: 0;
+  padding: 0;
 }
 .nav-bar li {
   display: inline;
-  padding: 0 10px 0 10px;
+  padding: 5px 5px;
+  text-transform: uppercase;
+  /* border-right: #e8491d 2px solid; */
+}
+.nav-bar li:hover {
+  background-color: #909090;
+  color: #e8491d;
 }
 
 .categories-sort {
+  grid-column: 4/13;
+  /* align-self: right; */
 }
+
+.categories-sort ul {
+}
+
+.categories {
+  grid-column: 2/13;
+}
+.categories ul {
+}
+
+/* Post Header */
 
 .user-info {
   display: grid;
-  grid-template-columns: 1fr 1fr 7fr 2fr;
+  grid-template-columns: repeat(12, 1fr);
+  min-height: 50px;
+  border: #000 2px solid;
 }
 
-.voting-block p {
+.user-info h3{
+  padding: 0;
   margin: 0;
-  padding: 5px 0 5px 0;
 }
 
+.voting-block {
+  grid-column: 1/2;
+}
+.user-avetar {
+  grid-column: 2/3;
+}
 .post-info {
+  grid-column: 3/12;
   text-align: left;
-  padding-left: 10px;
 }
 
 .post-info h3{
-  margin: 0;
-  padding: 4px 0 4px 0;
-  border-top: 1px solid black;
 }
 
 .comments-count {
-  float: right;
 }
 
 .edit-tools {
-  padding-left: 20px;
 }
 
 .edit-btn {
-  padding-right: 10px;
-}
-
-
-
-@keyframes App-logo-spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
 }
