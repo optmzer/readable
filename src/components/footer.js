@@ -3,10 +3,9 @@ import React, {Component} from 'react'
 class Footer extends Component {
   render() {
     return(
-      <footer>
+      <footer className="main-footer">
         <div>
-          TODO: Complete footer section
-          --== Web Dev ==--
+          --== Web Dev: Alexander Frolov ==--
         </div>
       </footer>
     )//return()

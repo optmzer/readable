@@ -1,21 +1,14 @@
 import React, {Component} from 'react'
 import Header from './header'
-import PostHeader from './post-header'
 import Footer from './footer'
+import Post from './post'
 
 class HomePage extends Component {
   render(){
     return(
       <div>
         <Header />
-        <ul className="main-page">
-        <li><PostHeader /></li>
-        <li><PostHeader /></li>
-        <li><PostHeader /></li>
-        <li><PostHeader /></li>
-        <li><PostHeader /></li>
-        <li><PostHeader /></li>
-        </ul>
+          <Post />
         <Footer />
       </div>
     )//return()

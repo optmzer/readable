@@ -1,0 +1,31 @@
+.post {
+  padding-top: 85px;
+
+}
+
+.post-block {
+  padding-left: 10%;
+}
+
+ .post-header {
+   /* grid-row: 1/2; */
+   /* grid-column: 3/12; */
+}
+
+.post-text {
+  border-bottom: #E8491D 2px solid;
+  padding-bottom: 1.5em;
+}
+
+.post-block p {
+  padding: 0.5em 1em;
+  text-align: justify;
+}
+
+.comment-section li:nth-child(even) {
+  background: #555;
+}
+
+.comment-section li:nth-child(odd) {
+  background: #676767;
+}

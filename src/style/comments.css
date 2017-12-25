@@ -1,0 +1,28 @@
+.comment {
+  border-bottom: #797979 1px solid;
+}
+
+.comment-header {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+}
+
+.comment-header .voting-block {
+  grid-column: 1/2;
+}
+
+.comment-header .user-avatar {
+  padding-top: 15%;
+  grid-column: 2/3;
+}
+
+.comment-header .comment-info {
+  padding-top: 15%;
+  text-align: left;
+  grid-column: 3/11;
+}
+
+.comment-header .vote-count {
+  padding-top: 5%;
+  font-size: 0.7em;
+}

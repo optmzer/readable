@@ -1,0 +1,121 @@
+/* Header */
+
+.App-header {
+  min-height: 80px;
+  background-color: #797979;
+  border-bottom: #e8491d 3px solid;
+  position: fixed;
+  top: 0;
+  width: 100%;
+}
+
+.nav-bar a {
+  padding: 5px 10px;
+  display: block;
+  text-transform: uppercase;
+}
+
+.nav-bar a:hover {
+  background-color: #909090;
+  color: #e8491d;
+}
+
+/* Navigation */
+.nav-bar {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+}
+
+.App-title {
+  margin: 0;
+  padding: 0;
+  color: #e8491d;
+  grid-row: 1/3;
+  grid-column: 1/4;
+}
+
+.App-title h1{
+  padding-top: 10px;
+}
+
+.categories-sort {
+  grid-row: 1/2;
+  grid-column: 4/13;
+}
+
+.categories-sort ul {
+  text-align: right;
+}
+
+.categories-sort li {
+  display: inline-block;
+}
+
+.categories-sort a{
+}
+.categories {
+  grid-row: 2/3;
+  grid-column: 4/13;
+}
+
+
+.categories ul {
+  text-align: left;
+}
+
+.categories li {
+  display: inline-block;
+}
+
+.categories a {
+  min-height: 30px;
+}
+
+/* main-page */
+.main-page {
+  overflow: auto;
+}
+
+/* Post Header */
+.user-info {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  min-height: 50px;
+  border-top: #000 2px solid;
+  border-bottom: #000 2px solid;
+
+}
+
+.user-info h3{
+  padding: 0;
+  margin: 0;
+}
+
+.voting-block {
+  grid-column: 1/2;
+}
+.user-avetar {
+  grid-column: 2/3;
+}
+.post-info {
+  grid-column: 3/12;
+  text-align: left;
+}
+
+.post-info h3{
+}
+
+.comments-count {
+}
+
+.edit-tools {
+}
+
+.edit-btn {
+}
+
+footer {
+  background: #e8491d;
+  min-height: 40px;
+}
