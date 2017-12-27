@@ -8,7 +8,7 @@ class Comment extends Component {
     return(
       <div className="comment">
         <CommentHeader />
-        <p class="comment-text">
+        <p className="comment-text">
           Lorem ipsum dolor sit amet, consectetur
           adipisicing elit. Excepturi facilis, harum cum, aut aspernatur
           dolorem, ea accusamus assumenda at laboriosam enim rem nisi atque

@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import * as Md from 'react-icons/lib/md'
 import '../style/header.css'
+import { Link } from 'react-router-dom'
 
 class Header extends Component {
   render() {
@@ -19,10 +20,26 @@ class Header extends Component {
           </nav>
           <nav className="categories">
             <ul>
-              <li className="active"><a><Md.MdHome size={30}/></a></li>
-              <li><a>Udacity</a></li>
-              <li><a>React</a></li>
-              <li><a>Redux</a></li>
+              <li className="active">
+                <Link className="home" to="/">
+                  <Md.MdHome size={30}/>
+                </Link>
+              </li>
+              <li>
+                <Link className="udacity" to="/udacity">
+                  Udacity
+                </Link>
+              </li>
+              <li>
+                <Link className="react" to="/react">
+                  React
+                  </Link>
+              </li>
+              <li>
+                <Link className="redux" to="/redux">
+                  Redux
+                </Link>
+              </li>
               <li>
                 <a><Md.MdAddBox className="create-post" size={30} /></a>
               </li>

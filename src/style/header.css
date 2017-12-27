@@ -9,6 +9,10 @@
   width: 100%;
 }
 
+.home-page-body {
+  margin-top: 83px;
+}
+
 .nav-bar a {
   padding: 5px 10px;
   display: block;
@@ -82,7 +86,7 @@
   display: grid;
   grid-template-columns: repeat(12, 1fr);
   min-height: 50px;
-  border-top: #000 2px solid;
+  /* border-top: #000 2px solid; */
   border-bottom: #000 2px solid;
 
 }
