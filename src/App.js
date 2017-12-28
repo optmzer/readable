@@ -6,8 +6,6 @@ class App extends Component {
 
   render() {
 
-    // console.log("L23 App ,", this.state.backend);
-
     return (
       <div className="App">
 

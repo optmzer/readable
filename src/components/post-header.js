@@ -8,7 +8,7 @@ class PostHeader extends Component {
     return(
       <div className="user-info">
         <div className="voting-block">
-          <a className="vote-up" ><Fa.FaArrowUp size={22}/></a>
+          <a className="vote-up" onClick={this.props.onVote} ><Fa.FaArrowUp size={22}/></a>
           <div className="vote-count">{this.props.voteScore}</div>
           <a className="vote-down" ><Fa.FaArrowDown size={22}/></a>
         </div>

@@ -22,7 +22,16 @@ class HomePage extends Component {
     console.log("Logs = ", data)
   }
 
+  voteForPost() {
+    var post_id = "8xf0y6ziyjabvozdd253nd"
+    readableAPI.voteOnPost(post_id, "upVote")
+    .then((resp)=>(console.log("L28 Vote ", resp)))
+  }
+
   render(){
+
+    console.log("L27 HomePage ", this.state.backend);
+
     const { backend } = this.state
 
     return(
@@ -34,6 +43,7 @@ class HomePage extends Component {
                 backend.map((post) => (
                   <li key={post.id}>
                     <PostHeader
+                      onVote={this.voteForPost}
                       title={post.title}
                       author={post.author}
                       voteScore={post.voteScore}
