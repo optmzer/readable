@@ -6,17 +6,17 @@ import * as readableAPI from '../utils/readableAPI'
 
 class HomePage extends Component {
 
-  state = {
-    backend: []
-  }
-
-  componentDidMount() {
-    readableAPI.getAllPosts().then((posts) =>
-      this.setState({
-        backend: posts
-      })
-    )
-  }//componentDidMount()
+  // state = {
+  //   backend: []
+  // }
+  //
+  // componentDidMount() {
+  //   if(this.props.listOfPosts){
+  //     this.setState({
+  //       backend: this.props.listOfPosts
+  //     })
+  //   }
+  // }//componentDidMount()
 
   getLogs(data) {
     console.log("Logs = ", data)
@@ -30,17 +30,22 @@ class HomePage extends Component {
 
   render(){
 
-    console.log("L27 HomePage ", this.state.backend);
+    // console.log("L27 HomePage ", this.props);
 
-    const { backend } = this.state
+    // const { backend } = this.state
 
     return(
       <div>
-        <Header />
+        <Header
+          selectCategory={
+            (category, posts) => this.props.selectCategory(category, posts)
+          }
+
+        />
           <div className="home-page-body">
             <ul>
-              {
-                backend.map((post) => (
+              { this.props.listOfPosts &&
+                this.props.listOfPosts.map((post) => (
                   <li key={post.id}>
                     <PostHeader
                       onVote={this.voteForPost}

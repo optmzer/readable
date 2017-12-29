@@ -1,10 +1,114 @@
+/**
+ * SVG pictures do not have id and className attribute
+ they cannot be referenced via link, must be supplied from css as a background
+ image.
+ */
+
+
 import React, { Component } from 'react'
-import * as Md from 'react-icons/lib/md'
+// import { MdHome, MdAddBox} from 'react-icons/lib/md'
 import '../style/header.css'
 import { Link } from 'react-router-dom'
+import * as readableAPI from '../utils/readableAPI'
 
 class Header extends Component {
+
+  state = {
+    home: "active",
+    udacity: "",
+    react: "",
+    redux: "",
+    create: "",
+
+  }
+
+  componentDidMount() {
+    this.getCategory("home")
+  }
+
+/**
+ * parameter string
+ */
+  getCategory(selection) {
+    console.log("L26 headers selection = ", selection);
+    let selected = "home"
+    if(selection === "home") {
+      readableAPI.getAllPosts()
+      .then((posts) => {
+        this.props.selectCategory(selection, posts)
+      })
+    } else {
+      selected = selection.toLowerCase()
+      readableAPI.getPostsFromCategory(selected)
+      .then( (posts) => {
+        this.props.selectCategory(selected, posts)
+      })
+    }
+
+    this.getCategorySelection(selected)
+
+  }//getCategory()
+
+  /**
+   * parameter string
+   */
+  getCategorySelection(selection) {
+    console.log("L57 heareds ", selection);
+
+    switch (selection) {
+      case "udacity":
+        this.setState({
+          home: "",
+          udacity: "active",
+          react: "",
+          redux: "",
+          create: "",
+        })
+        break
+      case "react":
+        this.setState({
+          home: "",
+          udacity: "",
+          react: "active",
+          redux: "",
+          create: "",
+        })
+        break
+      case "redux":
+        this.setState({
+          home: "",
+          udacity: "",
+          react: "",
+          redux: "active",
+          create: "",
+        })
+        break
+      case "create":
+        this.setState({
+          home: "",
+          udacity: "",
+          react: "",
+          redux: "",
+          create: "active",
+        })
+        break
+      default:
+        this.setState({
+          home: "active",
+          udacity: "",
+          react: "",
+          redux: "",
+          create: "",
+        })
+        break
+    }
+  }//getCategorySelection()
+
   render() {
+    // console.log("L18 header ", this.props);
+
+    // const { selectCategory } = this.props
+
     return(
       <header className="App-header">
         <div className="nav-bar">
@@ -20,28 +124,52 @@ class Header extends Component {
           </nav>
           <nav className="categories">
             <ul>
-              <li className="active">
-                <Link className="home" to="/">
-                  <Md.MdHome size={30}/>
+              <li>
+                <Link
+                  id="home"
+                  className={`${this.state.home} home`} to="/"
+                  onClick={ (event) => this.getCategory(event.target.id)}
+                >
+                  Home
                 </Link>
               </li>
               <li>
-                <Link className="udacity" to="/udacity">
+                <Link
+                  id="udacity"
+                  className={`${this.state.udacity} udacity`} to="/udacity"
+                  onClick={ (event) => this.getCategory(event.target.id)}
+                >
                   Udacity
                 </Link>
               </li>
               <li>
-                <Link className="react" to="/react">
+                <Link
+                  id="react"
+                  className={`${this.state.react} react`} to="/react"
+                  onClick={ (event) => this.getCategory(event.target.id)}
+                >
                   React
-                  </Link>
+                </Link>
               </li>
               <li>
-                <Link className="redux" to="/redux">
+                <Link
+                  id="redux"
+                  className={`${this.state.redux} redux`}
+                  to="/redux"
+                  onClick={ (event) => this.getCategory(event.target.id)}
+                >
                   Redux
                 </Link>
               </li>
               <li>
-                <a><Md.MdAddBox className="create-post" size={30} /></a>
+                <Link
+                  id="create"
+                  className={`${this.state.create} create-post`}
+                  to="/create"
+                  onClick={ (event) => this.getCategory(event.target.id)}
+                >
+                  Add Post
+                </Link>
               </li>
             </ul>
           </nav>
