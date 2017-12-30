@@ -4,7 +4,7 @@ import { SELECT_CATEGORY } from '../actions'
 //this is how it is going to appear in redux store
 //category_posts_reducer: {{category},{category_posts}}
 function category_posts_reducer(state={}, action) {
-  // console.log("L7 reducer ", action);
+  console.log("L7 reducer ", action);
 
   switch (action.type) {
     case SELECT_CATEGORY:
