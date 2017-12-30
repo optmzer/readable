@@ -7,17 +7,12 @@
 import React, { Component } from 'react'
 // import { MdHome, MdAddBox} from 'react-icons/lib/md'
 import '../style/header.css'
-import { Link } from 'react-router-dom'
+import { NavLink } from 'react-router-dom'
 import * as readableAPI from '../utils/readableAPI'
 
 class Header extends Component {
 
   state = {
-    home: "active",
-    udacity: "",
-    react: "",
-    redux: "",
-    create: "",
     sort_new: "active",
     sort_popular: "",
     sort_author: "",
@@ -77,64 +72,7 @@ class Header extends Component {
         this.props.selectCategory(selected, posts)
       })
     }
-
-    this.getCategorySelection(selected)
-
   }//getCategory()
-
-  /**
-   * parameter string
-   */
-  getCategorySelection(selection) {
-
-    switch (selection) {
-      case "udacity":
-        this.setState({
-          home: "",
-          udacity: "active",
-          react: "",
-          redux: "",
-          create: "",
-        })
-        break
-      case "react":
-        this.setState({
-          home: "",
-          udacity: "",
-          react: "active",
-          redux: "",
-          create: "",
-        })
-        break
-      case "redux":
-        this.setState({
-          home: "",
-          udacity: "",
-          react: "",
-          redux: "active",
-          create: "",
-        })
-        break
-      case "create":
-        this.setState({
-          home: "",
-          udacity: "",
-          react: "",
-          redux: "",
-          create: "active",
-        })
-        break
-      default:
-        this.setState({
-          home: "active",
-          udacity: "",
-          react: "",
-          redux: "",
-          create: "",
-        })
-        break
-    }
-  }//getCategorySelection()
 
   render() {
     // console.log("L18 header ", this.props);
@@ -177,51 +115,49 @@ class Header extends Component {
           <nav className="categories">
             <ul>
               <li>
-                <Link
+                <NavLink
                   id="home"
-                  className={`${this.state.home} home`} to="/"
+                  exact to="/"
                   onClick={ (event) => this.getCategory(event.target.id)}
                 >
                   Home
-                </Link>
+                </NavLink>
               </li>
               <li>
-                <Link
+                <NavLink
                   id="udacity"
-                  className={`${this.state.udacity} udacity`} to="/udacity"
+                  exact to="/udacity"
                   onClick={ (event) => this.getCategory(event.target.id)}
                 >
                   Udacity
-                </Link>
+                </NavLink>
               </li>
               <li>
-                <Link
+                <NavLink
                   id="react"
-                  className={`${this.state.react} react`} to="/react"
+                  exact to="/react"
                   onClick={ (event) => this.getCategory(event.target.id)}
                 >
                   React
-                </Link>
+                </NavLink>
               </li>
               <li>
-                <Link
+                <NavLink
                   id="redux"
-                  className={`${this.state.redux} redux`}
-                  to="/redux"
+                  exact to="/redux"
                   onClick={ (event) => this.getCategory(event.target.id)}
                 >
                   Redux
-                </Link>
+                </NavLink>
               </li>
               <li>
-                <Link
+                <NavLink
                   id="create"
-                  className={`${this.state.create} create-post`}
-                  to="/create"
+                  exact to="/create"
                   onClick={ (event) => this.getCategory(event.target.id)}
                 >
                   Add Post
-                </Link>
+                </NavLink>
               </li>
             </ul>
           </nav>

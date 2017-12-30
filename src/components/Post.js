@@ -1,12 +1,15 @@
 import React, {Component} from 'react'
 import PostHeader from './post-header'
 import Comment from './comment'
+import Header from './header'
+import Footer from './footer'
 import '../style/post.css'
 
 class Post extends Component {
   render(){
     return(
         <div className="post">
+          <Header />
           <PostHeader className="post-header" />
           <div className="post-block">
             <div className="post-title">
@@ -65,6 +68,7 @@ class Post extends Component {
               </ul>
             </section>
           </div>
+          <Footer />
         </div>
 
     )//return()
