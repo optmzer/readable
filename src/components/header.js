@@ -5,7 +5,7 @@
  */
 
 import React, { Component } from 'react'
-import { NavLink } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 import {selectCategoryThunk} from '../actions'
 // import { MdHome, MdAddBox} from 'react-icons/lib/md'
@@ -14,6 +14,11 @@ import '../style/header.css'
 class Header extends Component {
 
   state = {
+    category_home: "active",
+    category_react: "",
+    category_redux: "",
+    category_udacity: "",
+    category_create: "",
     sort_new: "active",
     sort_popular: "",
     sort_author: "",
@@ -21,32 +26,86 @@ class Header extends Component {
   }
 
   getCategory(category){
-    this.props.selectCategoryThunk(category)
-  }
+    switch (category) {
+      case "react":
+        this.setState({
+          category_home: "",
+          category_react: "active",
+          category_redux: "",
+          category_udacity: "",
+          category_create: "",
+        })
+        this.props.selectCategoryThunk(category)
+        break
+      case "redux":
+        this.setState({
+          category_home: "",
+          category_react: "",
+          category_redux: "active",
+          category_udacity: "",
+          category_create: "",
+        })
+        this.props.selectCategoryThunk(category)
+        break
+      case "udacity":
+        this.setState({
+          category_home: "",
+          category_react: "",
+          category_redux: "",
+          category_udacity: "active",
+          category_create: "",
+        })
+        this.props.selectCategoryThunk(category)
+        break
+      case "create":
+        this.setState({
+          category_home: "",
+          category_react: "",
+          category_redux: "",
+          category_udacity: "",
+          category_create: "active",
+        })
+        this.props.selectCategoryThunk(category)
+        break
+      default:
+        this.setState({
+          category_home: "active",
+          category_react: "",
+          category_redux: "",
+          category_udacity: "",
+          category_create: "",
+        })
+        this.props.selectCategoryThunk(category)
+        break
+    }//switch
+  }//getCategory()
 
   getSortSelection(selection) {
     switch (selection) {
       case "sort_popular":
-        return this.setState({
+        this.setState({
           sort_new: "",
           sort_popular: "active",
           sort_author: "",
           sort_title: ""
         })
+        break
       case "sort_author":
-        return this.setState({
+        this.setState({
           sort_new: "",
           sort_popular: "",
           sort_author: "active",
           sort_title: ""
         })
+        break
       case "sort_title":
-        return this.setState({
+        this.setState({
           sort_new: "",
           sort_popular: "",
           sort_author: "",
           sort_title: "active"
         })
+        break
       default:
       this.setState({
         sort_new: "active",
@@ -54,8 +113,8 @@ class Header extends Component {
         sort_author: "",
         sort_title: ""
       })
-    }
-  }
+    }//switch
+  }//getSortSelection()
 
 
   render() {
@@ -99,49 +158,54 @@ class Header extends Component {
           <nav className="categories">
             <ul>
               <li>
-                <NavLink
+                <Link
                   id="home"
-                  exact to="/"
+                  className={this.state.category_home}
+                  to="/"
                   onClick={ (event) => this.getCategory(event.target.id)}
                 >
                   Home
-                </NavLink>
+                </Link>
               </li>
               <li>
-                <NavLink
+                <Link
                   id="udacity"
-                  exact to="/udacity"
+                  className={this.state.category_udacity}
+                  to="/udacity"
                   onClick={ (event) => this.getCategory(event.target.id)}
                 >
                   Udacity
-                </NavLink>
+                </Link>
               </li>
               <li>
-                <NavLink
+                <Link
                   id="react"
-                  exact to="/react"
+                  to="/react"
+                  className={this.state.category_react}
                   onClick={ (event) => this.getCategory(event.target.id)}
                 >
                   React
-                </NavLink>
+                </Link>
               </li>
               <li>
-                <NavLink
+                <Link
                   id="redux"
-                  exact to="/redux"
+                  className={this.state.category_redux}
+                  to="/redux"
                   onClick={ (event) => this.getCategory(event.target.id)}
                 >
                   Redux
-                </NavLink>
+                </Link>
               </li>
               <li>
-                <NavLink
+                <Link
                   id="create"
-                  exact to="/create"
-
+                  className={this.state.category_create}
+                  to="/create"
+                  onClick={ (event) => this.getCategory(event.target.id)}
                 >
                   Add Post
-                </NavLink>
+                </Link>
               </li>
             </ul>
           </nav>

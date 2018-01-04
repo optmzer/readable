@@ -52,12 +52,12 @@ class HomePage extends Component {
           <Route exact path="/create"
            render={() => <Body category_posts={current_category} />}
           />
+          <Route exact path={`/${post_category}/${post_id}`}
+          render={({history}) =>
+            <Post history={this.printHistory(history)} postId={post_id}/>
+          }
+          />
         </Switch>
-        <Route path={`/${post_category}/${post_id}`}
-        render={({history}) =>
-          <Post history={this.printHistory(history)} postId={post_id}/>
-        }
-        />
         <Footer />
       </div>
     )//return()
