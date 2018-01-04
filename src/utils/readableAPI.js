@@ -115,6 +115,7 @@ export const voteOnPost = (post_id, vote) => (
   .then((data) => data)
 )
 
+
 /*
  PUT /posts/:id
    USAGE:
@@ -210,7 +211,7 @@ POST /comments/:id
   PARAMS:
     option - String: Either "upVote" or "downVote"
 */
-export const voteForComment = (comment_id, vote) => (
+export const voteOnComment = (comment_id, vote) => (
   fetch(`${URL}/comments/${comment_id}`, {
     headers: headers,
     body: JSON.stringify({
@@ -254,3 +255,5 @@ export const deleteCommentById = (comment_id) => (
   .then( (res) => res.json())
   .then((data) => data)
 )
+
+// ============= THUNK ============

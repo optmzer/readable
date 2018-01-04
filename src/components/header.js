@@ -5,10 +5,11 @@
  */
 
 import React, { Component } from 'react'
+import { NavLink } from 'react-router-dom'
+import { connect } from 'react-redux'
+import {selectCategoryThunk} from '../actions'
 // import { MdHome, MdAddBox} from 'react-icons/lib/md'
 import '../style/header.css'
-import { NavLink } from 'react-router-dom'
-import * as readableAPI from '../utils/readableAPI'
 
 class Header extends Component {
 
@@ -19,8 +20,8 @@ class Header extends Component {
     sort_title: ""
   }
 
-  componentDidMount() {
-    this.getCategory("home")
+  getCategory(category){
+    this.props.selectCategoryThunk(category)
   }
 
   getSortSelection(selection) {
@@ -55,24 +56,7 @@ class Header extends Component {
       })
     }
   }
-/**
- * parameter string
- */
-  getCategory(selection) {
-    let selected = "home"
-    if(selection === "home") {
-      readableAPI.getAllPosts()
-      .then((posts) => {
-        this.props.selectCategory(selection, posts)
-      })
-    } else {
-      selected = selection.toLowerCase()
-      readableAPI.getPostsFromCategory(selected)
-      .then( (posts) => {
-        this.props.selectCategory(selected, posts)
-      })
-    }
-  }//getCategory()
+
 
   render() {
     // console.log("L18 header ", this.props);
@@ -154,7 +138,7 @@ class Header extends Component {
                 <NavLink
                   id="create"
                   exact to="/create"
-                  onClick={ (event) => this.getCategory(event.target.id)}
+
                 >
                   Add Post
                 </NavLink>
@@ -167,4 +151,12 @@ class Header extends Component {
   }//render()
 }
 
-export default Header
+
+function mapDispatchToProps(dispatch) {
+  return {
+    selectCategoryThunk: (category) => {dispatch(selectCategoryThunk(category))},
+    // reserved for filtering
+  }
+}
+
+export default connect(null, mapDispatchToProps)(Header)

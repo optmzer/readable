@@ -1,69 +1,81 @@
 import React, {Component} from 'react'
+import { Route, Switch } from 'react-router-dom'
 import Header from './header'
+import Body from './body'
 import Footer from './footer'
-import PostHeader from './post-header'
+import Post from './post'
 import * as readableAPI from '../utils/readableAPI'
 import {connect} from 'react-redux'
-import {select_category} from '../actions'
+import {selectCategoryThunk} from '../actions'
+import _ from 'underscore'
+
 
 class HomePage extends Component {
 
-  getLogs(data) {
-    console.log("Logs = ", data)
+    componentWillMount() {
+    this.props.selectCategoryThunk("home")
+
   }
 
-  voteForPost() {
-    var post_id = "8xf0y6ziyjabvozdd253nd"
-    readableAPI.voteOnPost(post_id, "upVote")
-    .then((resp)=>(console.log("L28 Vote ", resp)))
+  printHistory(history){
+    console.log("L26 home-page ", history.location);
   }
 
   render(){
 
-    console.log("L27 HomePage ", this.props);
+    console.log("L40 HomePage this.props = ", this.props);
+    // console.log("L41 HomePage React this.state = ", this.state);
 
-    const { category_posts } = this.props.category_posts_reducer
+    let post_category, post_id
+    if(this.props.selected_post){
+      post_category = this.props.selected_post.category
+      post_id = this.props.selected_post.id
+    }
+    const { current_category } = this.props
 
     return(
       <div>
-        <Header
-          selectCategory={
-            (category, posts) => this.props.select_category(category, posts)
-          }
-
+        <Header />
+        <Switch>
+          <Route exact path="/"
+           render={() => <Body category_posts={current_category} />}
+          />
+          <Route exact path="/udacity"
+           render={() => <Body category_posts={current_category} />}
+          />
+          <Route exact path="/react"
+           render={() => <Body category_posts={current_category} />}
+          />
+          <Route exact path="/redux"
+           render={() => <Body category_posts={current_category} />}
+          />
+          <Route exact path="/create"
+           render={() => <Body category_posts={current_category} />}
+          />
+        </Switch>
+        <Route path={`/${post_category}/${post_id}`}
+        render={({history}) =>
+          <Post history={this.printHistory(history)} postId={post_id}/>
+        }
         />
-          <div className="home-page-body">
-            <ul>
-              { category_posts &&
-                category_posts.map((post) => (
-                  <li key={post.id}>
-                    <PostHeader
-                      onVote={this.voteForPost}
-                      title={post.title}
-                      author={post.author}
-                      voteScore={post.voteScore}
-                      commentCount={post.commentCount}
-                    />
-                  </li>
-                ))
-              }
-            </ul>
-          </div>
         <Footer />
       </div>
     )//return()
   }//render()
 }//class HomePage
 
-function mapStateToProps({category_posts_reducer}) {
+function mapStateToProps(state) {
+  const {category_posts_reducer, select_post_reducer, vote_on_post_reducer} = state
   return {
-    category_posts_reducer
+    current_category: category_posts_reducer.category_posts,
+    selected_post: select_post_reducer
   }
+
 }//mapStateToProps()
 
 function mapDispatchToProps(dispatch) {
   return {
-    select_category: (category, posts) => dispatch(select_category(category, posts))
+    selectCategoryThunk: (category) => dispatch(selectCategoryThunk(category)),
   }
 }//mapDispatchToProps()
 
