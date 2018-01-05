@@ -4,15 +4,15 @@ import Header from './header'
 import Body from './body'
 import Footer from './footer'
 import Post from './post'
-import * as readableAPI from '../utils/readableAPI'
 import {connect} from 'react-redux'
 import {selectCategoryThunk} from '../actions'
-import _ from 'underscore'
+// import * as readableAPI from '../utils/readableAPI'
+// import _ from 'underscore'
 
 
 class HomePage extends Component {
 
-    componentWillMount() {
+  componentWillMount() {
     this.props.selectCategoryThunk("home")
 
   }
@@ -30,6 +30,7 @@ class HomePage extends Component {
     if(this.props.selected_post){
       post_category = this.props.selected_post.category
       post_id = this.props.selected_post.id
+      // post = this.props.selected_post.post
     }
     const { current_category } = this.props
 
@@ -54,7 +55,9 @@ class HomePage extends Component {
           />
           <Route exact path={`/${post_category}/${post_id}`}
           render={({history}) =>
-            <Post history={this.printHistory(history)} postId={post_id}/>
+            <Post
+              history={this.printHistory(history)}
+            />
           }
           />
         </Switch>
@@ -65,10 +68,10 @@ class HomePage extends Component {
 }//class HomePage
 
 function mapStateToProps(state) {
-  const {category_posts_reducer, select_post_reducer, vote_on_post_reducer} = state
+  const {category_posts_reducer, select_post_reducer} = state
   return {
     current_category: category_posts_reducer.category_posts,
-    selected_post: select_post_reducer
+    selected_post: select_post_reducer.post
   }
 
 }//mapStateToProps()

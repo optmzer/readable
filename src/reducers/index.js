@@ -66,11 +66,22 @@ function category_posts_reducer(state, action) {
 }//category_posts_reducer()
 
 function select_post_reducer(state, action) {
-  const {post} = action
+  const {post_id} = action
+  console.log("L70 select_post_reducer ", post_id);
   switch (action.type) {
     case SELECT_POST:
       return {
-        post
+        post: action.post
+      }
+    case VOTE_POST:
+      if(action.post.id === state.post.id){
+        return {
+          post: action.post
+        }
+      } else {
+        return {
+          ...state
+        }
       }
     default:
       return {...state}

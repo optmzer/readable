@@ -89,11 +89,20 @@ export const addPost = (post_data) => (
 export const getPostById = (post_id) => (
   fetch(`${URL}/posts/${post_id}`, {
     headers: headers,
-  } )
+  })
   .then( (res) => res.json())
-  .then((data) => data)
+  .then((data) => {
+    console.log("L95 getPostById ", data);
+    return data
+  })
 )
-
+// export const getPostsFromCategory = (category) => (
+//   fetch(`${URL}/${category}/posts`, {
+//     headers: headers,
+//   } )
+//   .then( (res) => res.json())
+//   .then((data) => data)
+// )
 
 /*
  POST /posts/:id

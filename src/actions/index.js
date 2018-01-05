@@ -5,6 +5,7 @@ export const SELECT_POST = "SELECT_POST"
 export const VOTE_POST = "VOTE_POST"
 export const VOTE_COMMENT = "VOTE_COMMENT"
 
+
 export function vote_on_post(post) {
   return {
     type: VOTE_POST,
