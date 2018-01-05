@@ -74,7 +74,7 @@ function select_post_reducer(state, action) {
         post: action.post
       }
     case VOTE_POST:
-      if(action.post.id === state.post.id){
+      if(state.post && action.post.id === state.post.id){
         return {
           post: action.post
         }
