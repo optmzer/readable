@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 import PostHeader from './post-header'
 import Comment from './comment'
 import '../style/post.css'
-import * as readableAPI from '../utils/readableAPI'
+// import * as readableAPI from '../utils/readableAPI'
 import { connect } from 'react-redux'
 
 
@@ -14,15 +14,8 @@ import { connect } from 'react-redux'
 
 class Post extends Component {
 
-  // state={
-  //   comments: []
-  // }
 
   componentWillMount() {
-    // readableAPI.getAllPostComments(this.props.post.id)
-    // .then(comments => this.setState({
-    //   comments
-    // }))
 
   }
 

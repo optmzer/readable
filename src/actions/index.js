@@ -24,6 +24,7 @@ export function voteOnPostThunk (post_id, vote) {
 }
 
 function vote_on_comment(comment) {
+  console.log("L27 vote_on_comment comment ", comment);
   return {
     type: VOTE_COMMENT,
     comment

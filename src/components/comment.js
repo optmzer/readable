@@ -11,6 +11,10 @@ class Comment extends Component {
   // state={
   //   comment_data: {}
   // }
+
+  componentWillReceiveProps(){
+    //update vote count
+  }
   // author: "thingtwo"
   // body: "Hi there! I am a COMMENT."
   // deleted: false
@@ -31,11 +35,14 @@ class Comment extends Component {
       <div className="comment-header">
         <div className="voting-block">
           <a className="vote-up"
-            onClick={() => voteOnCommentThunk(comment_data.id, "voteUp")}
-            ><Fa.FaArrowUp size={15}/></a>
+          onClick={() => this.props.voteOnCommentThunk(comment_data.id, "upVote")}
+            ><Fa.FaArrowUp
+              size={15}
+
+              /></a>
           <div className="vote-count">{comment_data.voteScore}</div>
           <a className="vote-down"
-            onClick={() => voteOnCommentThunk(comment_data.id, "voteDown")}
+            onClick={() => this.props.voteOnCommentThunk(comment_data.id, "downVote")}
           ><Fa.FaArrowDown size={15}/></a>
         </div>
         <span className="user-avatar">
@@ -47,7 +54,7 @@ class Comment extends Component {
             <span className="comment-time">
               commented on Time: {`${comment_timestamp}`}
             </span>
-          </div>  
+          </div>
         </div>
         <div className="edit-tools">
           <a ><IoAndroid.IoEdit className="edit-btn" size={25} /></a>

@@ -95,11 +95,19 @@ function selected_post_comments_reducer(state, action) {
         comments: action.comments
       }
     case VOTE_COMMENT:
-      if(state.comments && action.comments.id === state.comments.id){
+    console.log("L98 state ", state);
+    console.log("L99 action ", action);
+      if(state.comments){
           return {
-            comments: action.comments
+            comments: state.comments.map(comment => {
+                      if(comment.id === action.comment.id){
+                        return action.comment
+                      } else {
+                        return comment
+                      }
+                    })
           }
-        }
+        }//if
       return {...state}
     default:
       return {...state}
