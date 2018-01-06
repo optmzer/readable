@@ -1,8 +1,11 @@
 import { combineReducers } from 'redux'
-import {  SELECT_CATEGORY,
-          SELECT_POST,
-          VOTE_POST,
-          VOTE_COMMENT} from '../actions'
+import {
+  SELECT_CATEGORY,
+  SELECT_POST,
+  VOTE_POST,
+  VOTE_COMMENT,
+  GET_SELECTED_POST_COMMENTS
+} from '../actions'
 
 /**
  * I think I need to create an empty state for data and fill it in with updates
@@ -11,18 +14,18 @@ import {  SELECT_CATEGORY,
   I probably need to use React state to make a data object to feed into the App.
  */
 
-function vote_on_comment_reducer(state, action) {
-  switch (action.type) {
-    case VOTE_COMMENT:
-      return {
-        vote_comment: action.comment
-      }
-    default:
-      return {
-        ...state
-      }
-  }
-}
+// function vote_on_comment_reducer(state, action) {
+//   switch (action.type) {
+//     case VOTE_COMMENT:
+//       return {
+//         voted_comment: action.comment
+//       }
+//     default:
+//       return {
+//         ...state
+//       }
+//   }
+// }
 //CRAPY NAMING CONVENTION ALERT!!!
 //state- is not an app state state is DATA from action!!!
 /**this reducer receives state of the element its action is signed to
@@ -65,9 +68,8 @@ function category_posts_reducer(state, action) {
   }
 }//category_posts_reducer()
 
+//Shows the post that was selected
 function select_post_reducer(state, action) {
-  const {post_id} = action
-  console.log("L70 select_post_reducer ", post_id);
   switch (action.type) {
     case SELECT_POST:
       return {
@@ -78,11 +80,27 @@ function select_post_reducer(state, action) {
         return {
           post: action.post
         }
-      } else {
-        return {
-          ...state
-        }
       }
+      return {...state}
+    default:
+      return {...state}
+  }
+}
+
+
+function selected_post_comments_reducer(state, action) {
+  switch (action.type) {
+    case GET_SELECTED_POST_COMMENTS:
+      return {
+        comments: action.comments
+      }
+    case VOTE_COMMENT:
+      if(state.comments && action.comments.id === state.comments.id){
+          return {
+            comments: action.comments
+          }
+        }
+      return {...state}
     default:
       return {...state}
   }
@@ -94,6 +112,7 @@ function select_post_reducer(state, action) {
 export default combineReducers({
   category_posts_reducer,
   select_post_reducer,
-  vote_on_comment_reducer,
-  vote_on_post_reducer
+  // vote_on_comment_reducer,
+  vote_on_post_reducer,
+  selected_post_comments_reducer
 })

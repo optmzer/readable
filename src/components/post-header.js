@@ -2,7 +2,11 @@ import React, {Component} from 'react'
 import * as Fa from 'react-icons/lib/fa'
 import * as IoAndroid from 'react-icons/lib/io'
 import { Link } from 'react-router-dom'
-import { selectPostThunk, voteOnPostThunk } from '../actions'
+import {
+        selectPostThunk,
+        voteOnPostThunk,
+        getSelectPostCommentsThunk
+       } from '../actions'
 import { connect } from 'react-redux'
 
 class PostHeader extends Component {
@@ -53,7 +57,10 @@ class PostHeader extends Component {
               <div>
                 <Link
                   to={`${category}/${post_id}`}
-                  onClick={() => this.props.selectPostThunk(post_id)}
+                  onClick={() => {
+                    this.props.selectPostThunk(post_id)
+                    this.props.getSelectPostCommentsThunk(post_id)
+                  }}
                 ><h3>{title}</h3>
                 </Link>
               </div>
@@ -78,7 +85,8 @@ class PostHeader extends Component {
 function mapDispatchToProps(dispatch) {
   return {
     selectPostThunk: (post_id) => {dispatch(selectPostThunk(post_id))},
-    voteOnPost: (post_id, vote) => {dispatch(voteOnPostThunk(post_id, vote))}
+    voteOnPost: (post_id, vote) => {dispatch(voteOnPostThunk(post_id, vote))},
+    getSelectPostCommentsThunk: (post_id) => dispatch(getSelectPostCommentsThunk(post_id)),
   }
 }
 

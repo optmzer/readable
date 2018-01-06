@@ -92,17 +92,9 @@ export const getPostById = (post_id) => (
   })
   .then( (res) => res.json())
   .then((data) => {
-    console.log("L95 getPostById ", data);
     return data
   })
 )
-// export const getPostsFromCategory = (category) => (
-//   fetch(`${URL}/${category}/posts`, {
-//     headers: headers,
-//   } )
-//   .then( (res) => res.json())
-//   .then((data) => data)
-// )
 
 /*
  POST /posts/:id

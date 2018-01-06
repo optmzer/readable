@@ -14,7 +14,6 @@ class HomePage extends Component {
 
   componentWillMount() {
     this.props.selectCategoryThunk("home")
-
   }
 
   printHistory(history){
@@ -56,7 +55,6 @@ class HomePage extends Component {
           <Route exact path={`/${post_category}/${post_id}`}
           render={({history}) =>
             <Post
-              history={this.printHistory(history)}
             />
           }
           />

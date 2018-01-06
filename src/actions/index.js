@@ -4,9 +4,9 @@ export const SELECT_CATEGORY = "SELECT_CATEGORY"
 export const SELECT_POST = "SELECT_POST"
 export const VOTE_POST = "VOTE_POST"
 export const VOTE_COMMENT = "VOTE_COMMENT"
+export const GET_SELECTED_POST_COMMENTS = "GET_SELECTED_POST_COMMENTS"
 
-
-export function vote_on_post(post) {
+function vote_on_post(post) {
   return {
     type: VOTE_POST,
     post
@@ -23,7 +23,7 @@ export function voteOnPostThunk (post_id, vote) {
   }
 }
 
-export function vote_on_comment(comment) {
+function vote_on_comment(comment) {
   return {
     type: VOTE_COMMENT,
     comment
@@ -39,7 +39,7 @@ export function voteOnCommentThunk(comment_id, vote) {
 }
 
 //Combines 3 different actions into one with new property.
-export function select_category(posts) {
+function select_category(posts) {
   return {
     type: SELECT_CATEGORY,
     category_posts: posts
@@ -63,7 +63,7 @@ export function selectCategoryThunk (category) {
   }
 }
 
-export function select_post(post) {
+function select_post(post) {
   return {
     type: SELECT_POST,
     post
@@ -71,10 +71,22 @@ export function select_post(post) {
 }
 
 export function selectPostThunk(post_id){
+  return function(dispatch) {
+    readableAPI.getPostById(post_id)
+    .then((post) =>  dispatch(select_post(post)))
+  }
+}
+
+function get_select_post_comments(comments) {
+  return {
+    type: GET_SELECTED_POST_COMMENTS,
+    comments
+  }
+}
+
+export function getSelectPostCommentsThunk(post_id) {
   return function(dispatch){
-    return readableAPI.getPostById(post_id)
-    .then((post) => {
-      dispatch(select_post(post))
-    })
+    readableAPI.getAllPostComments(post_id)
+    .then(comments => dispatch(get_select_post_comments(comments)))
   }
 }
