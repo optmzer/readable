@@ -14,18 +14,6 @@ import {
   I probably need to use React state to make a data object to feed into the App.
  */
 
-// function vote_on_comment_reducer(state, action) {
-//   switch (action.type) {
-//     case VOTE_COMMENT:
-//       return {
-//         voted_comment: action.comment
-//       }
-//     default:
-//       return {
-//         ...state
-//       }
-//   }
-// }
 //CRAPY NAMING CONVENTION ALERT!!!
 //state- is not an app state state is DATA from action!!!
 /**this reducer receives state of the element its action is signed to
@@ -52,16 +40,18 @@ function category_posts_reducer(state, action) {
       return {
         category_posts: action.category_posts
       }
-    case VOTE_POST:
-      let updated_posts = state.category_posts.map(post => {
-        if(post.id === action.post.id) {
-          return action.post
-        } else {
-          return post
-        }
-      })
+    case VOTE_POST://when category is selected
+      if(state.category_posts){
       return {
-        category_posts: updated_posts
+        category_posts: state.category_posts.map(post => {
+                        if(post.id === action.post.id) {
+                          return action.post
+                        } else {
+                          return post
+                        }
+                      })
+      }} else {
+        return {...state}
       }
     default:
       return {...state}
@@ -95,8 +85,6 @@ function selected_post_comments_reducer(state, action) {
         comments: action.comments
       }
     case VOTE_COMMENT:
-    console.log("L98 state ", state);
-    console.log("L99 action ", action);
       if(state.comments){
           return {
             comments: state.comments.map(comment => {

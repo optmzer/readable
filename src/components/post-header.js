@@ -25,7 +25,11 @@ class PostHeader extends Component {
     voteScore = 0
 
 // hasOwnProperty("post_data")
-    var options = { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric', hour12: false }
+    var options = { weekday: 'short',
+                    year: 'numeric',
+                    month: 'short',
+                    day: 'numeric',
+                    hour12: false }
 
     if(this.props.post_data) {
       timestamp = new Date(post_data.timestamp).toLocaleTimeString("en-NZ", options)
@@ -48,18 +52,18 @@ class PostHeader extends Component {
 
             <span className="user-avatar">
               <Link
-                to={`${category}/${post_id}`}
+                to={`/${category}/${post_id}`}
               ><Fa.FaFileImageO size={75}/></Link>
             </span>
             <div className="post-info">
               <div>
                 <Link
-                  to={`${category}/${post_id}`}
+                  to={`/${category}/${post_id}`}
                 >{author}</Link>
               </div>
               <div>
                 <Link
-                  to={`${category}/${post_id}`}
+                  to={`/${category}/${post_id}`}
                   onClick={() => {
                     this.props.selectPostThunk(post_id)
                     this.props.getSelectPostCommentsThunk(post_id)
