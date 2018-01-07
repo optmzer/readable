@@ -1,5 +1,4 @@
 import React, {Component} from 'react'
-// import CommentHeader from './comment-header'
 import * as Fa from 'react-icons/lib/fa'
 import * as IoAndroid from 'react-icons/lib/io'
 import '../style/comments.css'
@@ -15,31 +14,29 @@ class Comment extends Component {
   componentWillReceiveProps(){
     //update vote count
   }
-  // author: "thingtwo"
-  // body: "Hi there! I am a COMMENT."
-  // deleted: false
-  // id: "894tuq4ut84ut8v4t8wun89g"
-  // parentDeleted: false
-  // parentId: "8xf0y6ziyjabvozdd253nd"
-  // timestamp: 1468166872634
-  // voteScore: 6
+
 
   render() {
 
     console.log("L12 Comment ", this.props)
 
     const { comment_data } = this.props
-    let comment_timestamp = new Date(comment_data.timestamp).toLocaleTimeString()
+    //Date options
+    var options = { weekday: 'short',
+                    year: 'numeric',
+                    month: 'short',
+                    day: 'numeric',
+                    hour12: false }
+    let comment_timestamp = new Date(comment_data.timestamp)
+                              .toLocaleTimeString('en-NZ', options)
+
     return(
       <div className="comment">
       <div className="comment-header">
         <div className="voting-block">
           <a className="vote-up"
           onClick={() => this.props.voteOnCommentThunk(comment_data.id, "upVote")}
-            ><Fa.FaArrowUp
-              size={15}
-
-              /></a>
+            ><Fa.FaArrowUp size={15} /></a>
           <div className="vote-count">{comment_data.voteScore}</div>
           <a className="vote-down"
             onClick={() => this.props.voteOnCommentThunk(comment_data.id, "downVote")}

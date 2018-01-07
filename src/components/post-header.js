@@ -24,8 +24,11 @@ class PostHeader extends Component {
     title = "Post Title",
     voteScore = 0
 
-    if(this.props.hasOwnProperty("post_data")) {
-      timestamp = new Date(post_data.timestamp).toLocaleTimeString()
+// hasOwnProperty("post_data")
+    var options = { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric', hour12: false }
+
+    if(this.props.post_data) {
+      timestamp = new Date(post_data.timestamp).toLocaleTimeString("en-NZ", options)
       author = post_data.author
       category = post_data.category
       commentCount = post_data.commentCount

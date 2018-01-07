@@ -4,6 +4,7 @@ import Comment from './comment'
 import '../style/post.css'
 // import * as readableAPI from '../utils/readableAPI'
 import { connect } from 'react-redux'
+import { selectPostThunk, getSelectPostCommentsThunk } from '../actions'
 
 
 /**
@@ -16,12 +17,20 @@ class Post extends Component {
 
 
   componentWillMount() {
-
+    if(!this.props.post){
+      this.props.selectPostThunk(this.props.match.params.post_id)
+      this.props.getSelectPostCommentsThunk(this.props.match.params.post_id)
+      //by connecting actions. because I already have props inhere
+      //get selected post from match.params.post_category match.params.post_id
+      //And
+      //get comments for this post.
+    }
   }
 
   render(){
-  console.log("L32 Post this.props = ", this.props);
-  console.log("L33 Post this.state = ", this.state);
+  // console.log("L23 Post this.props = ", this.props);
+  // console.log("L24 Post this.props.match = ", this.props.match);
+  // console.log("L25 Post this.state = ", this.state);
 
 
   const { post, comments } = this.props
@@ -31,27 +40,32 @@ class Post extends Component {
         <div className="post">
           <PostHeader post_data={post} className="post-header" />
           <div className="post-block">
-            <div className="post-title">
-              <h2>{post.title}</h2>
-            </div>
-            <div className="post-body">
-              <article className="post-text">
-                {post.body}
-              </article>
-            </div>
-            <section className="comment-section">
-              <ul>{
-                comments &&
-                  comments.map(comment => {
-                    return  (
-                      <li key={comment.id}>
-                        <Comment comment_data={comment}/>
-                      </li>
-                    )
-                  })
+              {
+                post &&
+                <section>
+                <div className="post-title">
+                  <h2>{post.title}</h2>
+                </div>
+                <div className="post-body">
+                  <article className="post-text">
+                    {post.body}
+                  </article>
+                </div>
+                </section>
               }
-              </ul>
-            </section>
+              <section className="comment-section">
+                <ul>{
+                  comments &&
+                    comments.map(comment => {
+                      return  (
+                        <li key={comment.id}>
+                          <Comment comment_data={comment}/>
+                        </li>
+                      )
+                    })
+                }
+                </ul>
+              </section>
           </div>
         </div>
 
@@ -67,10 +81,11 @@ function mapStateToProps(state) {
   }
 }//mapStateToProps()
 
-// function mapDispatchToProps(dispatch) {
-//   return {
-//     getSelectPostCommentsThunk: (parent_id) => dispatch(getSelectPostCommentsThunk(parent_id)),
-//   }
-// }
+function mapDispatchToProps(dispatch) {
+  return {
+    getSelectPostCommentsThunk: (post_id) => dispatch(getSelectPostCommentsThunk(post_id)),
+    selectPostThunk: (post_id) => dispatch(selectPostThunk(post_id))
+  }
+}
 
-export default connect(mapStateToProps)(Post)
+export default connect(mapStateToProps, mapDispatchToProps)(Post)
