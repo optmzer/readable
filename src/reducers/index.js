@@ -6,6 +6,7 @@ import {
   VOTE_COMMENT,
   GET_SELECTED_POST_COMMENTS,
   DELETE_COMMENT,
+  DELETE_POST,
 } from '../actions'
 
 /**
@@ -47,9 +48,16 @@ function category_posts_reducer(state, action) {
                           return post
                         }
                       })
-      }} else {
-        return {...state}
-      }
+      }}
+      return {...state}
+    case DELETE_POST://when category is selected
+      if(state.category_posts){
+      return {
+        category_posts: state.category_posts.filter(post =>
+                        post.id !== action.post.id
+                      )
+      }}
+      return {...state}
     default:
       return {...state}
   }
@@ -66,6 +74,13 @@ function select_post_reducer(state, action) {
       if(state.post && action.post.id === state.post.id){
         return {
           post: action.post
+        }
+      }
+      return {...state}
+    case DELETE_POST:
+      if(state.post && action.post.id === state.post.id){
+        return {
+          post: {}
         }
       }
       return {...state}
@@ -95,16 +110,11 @@ function selected_post_comments_reducer(state, action) {
         }//if
       return {...state}
     case DELETE_COMMENT:
-    console.log("L98 selected_post_comments_reducer DELETE_COMMENT ", state);
-
       if(state.comments.length !== 0){
-        console.log("L98 selected_post_comments_reducer DELETE_COMMENT if ");
         return {
           comments: state.comments.filter(com => com.id !== action.comment.id)
         }
       }
-      console.log("L98 selected_post_comments_reducer DELETE_COMMENT else ");
-
       return {...state}
 
     default:

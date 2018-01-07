@@ -6,6 +6,7 @@ export const VOTE_POST = "VOTE_POST"
 export const VOTE_COMMENT = "VOTE_COMMENT"
 export const GET_SELECTED_POST_COMMENTS = "GET_SELECTED_POST_COMMENTS"
 export const DELETE_COMMENT = "DELETE_COMMENT"
+export const DELETE_POST = "DELETE_POST"
 
 function vote_on_post(post) {
   return {
@@ -93,7 +94,7 @@ export function getSelectPostCommentsThunk(post_id) {
   }
 }
 
-function deleteComment(comment) {
+function delete_comment(comment) {
   return {
     type: DELETE_COMMENT,
     comment
@@ -103,6 +104,20 @@ function deleteComment(comment) {
 export function deleteCommentThunk(comment_id){
   return function(dispatch) {
     readableAPI.deleteCommentById(comment_id)
-    .then(response => dispatch(deleteComment(response)))
+    .then(response => dispatch(delete_comment(response)))
+  }
+}
+
+function delete_post(post){
+  return {
+    type: DELETE_POST,
+    post
+  }
+}
+
+export function deletePostThunk(post_id){
+  return function(dispatch) {
+    readableAPI.deletePostById(post_id)
+    .then(response => dispatch(delete_post(response)))
   }
 }

@@ -8,7 +8,9 @@ import {
   selectPostThunk,
   getSelectPostCommentsThunk,
   voteOnPostThunk,
+  deletePostThunk
 } from '../actions'
+import * as _ from 'underscore'
 
 /**
  * Post can be done as a stand alone React app because I will only see
@@ -23,7 +25,6 @@ class Post extends Component {
     if(!this.props.post){
       this.props.selectPostThunk(this.props.match.params.post_id)
       this.props.getSelectPostCommentsThunk(this.props.match.params.post_id)
-
     }
   }
 
@@ -44,10 +45,12 @@ class Post extends Component {
     timestamp = new Date(post.timestamp).toLocaleTimeString("en-NZ", options)
   }
 
+  console.log("L47 post ", this.props);
+
   return(
         <div className="post">
           {
-            post &&
+            !_.isEmpty(post) &&
             <div className="user-info">
               <div className="voting-block">
                 <a className="vote-up"
@@ -78,13 +81,14 @@ class Post extends Component {
               <div className="edit-tools">
                 <a ><IoAndroid.IoEdit className="edit-btn" size={25} /></a>
                 <a
+                  onClick={() => this.props.deletePost(post.id)}
                   ><IoAndroid.IoAndroidDelete className="delete-btn" size={25} /></a>
               </div>
             </div>
           }
           <div className="post-block">
             {
-              post &&
+              !_.isEmpty(post) &&
               <section>
               <div className="post-title">
                 <h2>{post.title}</h2>
@@ -98,7 +102,7 @@ class Post extends Component {
             }
             <section className="comment-section">
               <ul>{
-                comments &&
+                !_.isEmpty(post) && comments &&
                   comments.map(comment => {
                     return  (
                       <li key={comment.id}>
@@ -129,6 +133,7 @@ function mapDispatchToProps(dispatch) {
     getSelectPostCommentsThunk: (post_id) => dispatch(getSelectPostCommentsThunk(post_id)),
     selectPostThunk: (post_id) => dispatch(selectPostThunk(post_id)),
     voteOnPost: (post_id, vote) => dispatch(voteOnPostThunk(post_id, vote)),
+    deletePost: (post_id) => dispatch(deletePostThunk(post_id))
   }
 }
 

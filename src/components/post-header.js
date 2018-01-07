@@ -5,7 +5,8 @@ import { Link } from 'react-router-dom'
 import {
         selectPostThunk,
         voteOnPostThunk,
-        getSelectPostCommentsThunk
+        getSelectPostCommentsThunk,
+        deletePostThunk
        } from '../actions'
 import { connect } from 'react-redux'
 
@@ -45,9 +46,13 @@ class PostHeader extends Component {
     return(
       <div className="user-info">
           <div className="voting-block">
-            <a className="vote-up" onClick={() => this.props.voteOnPost(post_id, "upVote")} ><Fa.FaArrowUp size={22}/></a>
+            <a className="vote-up"
+              onClick={() => this.props.voteOnPost(post_id, "upVote")}
+            ><Fa.FaArrowUp size={22}/></a>
             <div className="vote-count">{voteScore}</div>
-            <a className="vote-down" onClick={() => this.props.voteOnPost(post_id, "downVote")} ><Fa.FaArrowDown size={22}/></a>
+            <a className="vote-down"
+              onClick={() => this.props.voteOnPost(post_id, "downVote")}
+            ><Fa.FaArrowDown size={22}/></a>
           </div>
 
             <span className="user-avatar">
@@ -72,7 +77,8 @@ class PostHeader extends Component {
                 </Link>
               </div>
               <div>
-                <span className="published-time">published on Time: {`${timestamp}`} | </span>
+                <span className="published-time">
+                  published on Time: {`${timestamp}`} | </span>
                 <span className="comments-count">
                   Comment count: {commentCount}
                 </span>
@@ -81,7 +87,9 @@ class PostHeader extends Component {
 
           <div className="edit-tools">
             <a ><IoAndroid.IoEdit className="edit-btn" size={25} /></a>
-            <a ><IoAndroid.IoAndroidDelete className="delete-btn" size={25} /></a>
+            <a
+              onClick={() => this.props.deletePost(post_id)}
+            ><IoAndroid.IoAndroidDelete className="delete-btn" size={25} /></a>
           </div>
       </div>
     )//return()
@@ -94,6 +102,7 @@ function mapDispatchToProps(dispatch) {
     selectPostThunk: (post_id) => {dispatch(selectPostThunk(post_id))},
     voteOnPost: (post_id, vote) => {dispatch(voteOnPostThunk(post_id, vote))},
     getSelectPostCommentsThunk: (post_id) => dispatch(getSelectPostCommentsThunk(post_id)),
+    deletePost: (post_id) => dispatch(deletePostThunk(post_id))
   }
 }
 
