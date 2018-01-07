@@ -4,14 +4,11 @@ import {
   SELECT_POST,
   VOTE_POST,
   VOTE_COMMENT,
-  GET_SELECTED_POST_COMMENTS
+  GET_SELECTED_POST_COMMENTS,
+  DELETE_COMMENT,
 } from '../actions'
 
 /**
- * I think I need to create an empty state for data and fill it in with updates
-  from the server as app is being used.
-  Why it is only happening when I switch to another post?
-  I probably need to use React state to make a data object to feed into the App.
  */
 
 //CRAPY NAMING CONVENTION ALERT!!!
@@ -97,6 +94,19 @@ function selected_post_comments_reducer(state, action) {
           }
         }//if
       return {...state}
+    case DELETE_COMMENT:
+    console.log("L98 selected_post_comments_reducer DELETE_COMMENT ", state);
+
+      if(state.comments.length !== 0){
+        console.log("L98 selected_post_comments_reducer DELETE_COMMENT if ");
+        return {
+          comments: state.comments.filter(com => com.id !== action.comment.id)
+        }
+      }
+      console.log("L98 selected_post_comments_reducer DELETE_COMMENT else ");
+
+      return {...state}
+
     default:
       return {...state}
   }

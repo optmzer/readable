@@ -256,5 +256,3 @@ export const deleteCommentById = (comment_id) => (
   .then( (res) => res.json())
   .then((data) => data)
 )
-
-// ============= THUNK ============

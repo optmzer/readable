@@ -3,7 +3,7 @@ import * as Fa from 'react-icons/lib/fa'
 import * as IoAndroid from 'react-icons/lib/io'
 import '../style/comments.css'
 import { connect } from 'react-redux'
-import { voteOnCommentThunk } from '../actions'
+import { voteOnCommentThunk, deleteCommentThunk } from '../actions'
 
 class Comment extends Component {
 
@@ -55,7 +55,9 @@ class Comment extends Component {
         </div>
         <div className="edit-tools">
           <a ><IoAndroid.IoEdit className="edit-btn" size={25} /></a>
-          <a ><IoAndroid.IoAndroidDelete className="delete-btn" size={25} /></a>
+          <a
+            onClick={() => this.props.deleteComment(comment_data.id)}
+          ><IoAndroid.IoAndroidDelete className="delete-btn" size={25} /></a>
         </div>
       </div>
       <div className="comment-body">
@@ -78,6 +80,7 @@ class Comment extends Component {
 function mapDispatchToProps(dispatch){
   return {
     voteOnCommentThunk: (comment_id, vote) => dispatch(voteOnCommentThunk(comment_id, vote)),
+    deleteComment: (comment_id) => dispatch(deleteCommentThunk(comment_id)),
   }
 }
 

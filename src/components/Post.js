@@ -1,17 +1,14 @@
 import React, {Component} from 'react'
 import * as Fa from 'react-icons/lib/fa'
 import * as IoAndroid from 'react-icons/lib/io'
-import PostHeader from './post-header'
 import Comment from './comment'
 import '../style/post.css'
-// import * as readableAPI from '../utils/readableAPI'
 import { connect } from 'react-redux'
-import { selectPostThunk, getSelectPostCommentsThunk, voteOnPostThunk } from '../actions'
-
-/**
- * Bug post does not vote properly after page reload as category_posts are
- not set.
- */
+import {
+  selectPostThunk,
+  getSelectPostCommentsThunk,
+  voteOnPostThunk,
+} from '../actions'
 
 /**
  * Post can be done as a stand alone React app because I will only see
@@ -53,9 +50,13 @@ class Post extends Component {
             post &&
             <div className="user-info">
               <div className="voting-block">
-                <a className="vote-up" onClick={() => this.props.voteOnPost(post.id, "upVote")} ><Fa.FaArrowUp size={22}/></a>
+                <a className="vote-up"
+                    onClick={() => this.props.voteOnPost(post.id, "upVote")}
+                ><Fa.FaArrowUp size={22}/></a>
                 <div className="vote-count">{post.voteScore}</div>
-                <a className="vote-down" onClick={() => this.props.voteOnPost(post.id, "downVote")} ><Fa.FaArrowDown size={22}/></a>
+                <a className="vote-down"
+                  onClick={() => this.props.voteOnPost(post.id, "downVote")}
+                ><Fa.FaArrowDown size={22}/></a>
               </div>
               <span className="user-avatar">
                 <Fa.FaFileImageO size={75}/>
@@ -76,7 +77,8 @@ class Post extends Component {
               </div>
               <div className="edit-tools">
                 <a ><IoAndroid.IoEdit className="edit-btn" size={25} /></a>
-                <a ><IoAndroid.IoAndroidDelete className="delete-btn" size={25} /></a>
+                <a
+                  ><IoAndroid.IoAndroidDelete className="delete-btn" size={25} /></a>
               </div>
             </div>
           }
@@ -126,7 +128,7 @@ function mapDispatchToProps(dispatch) {
   return {
     getSelectPostCommentsThunk: (post_id) => dispatch(getSelectPostCommentsThunk(post_id)),
     selectPostThunk: (post_id) => dispatch(selectPostThunk(post_id)),
-    voteOnPost: (post_id, vote) => {dispatch(voteOnPostThunk(post_id, vote))},
+    voteOnPost: (post_id, vote) => dispatch(voteOnPostThunk(post_id, vote)),
   }
 }
 

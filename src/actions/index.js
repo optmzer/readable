@@ -5,6 +5,7 @@ export const SELECT_POST = "SELECT_POST"
 export const VOTE_POST = "VOTE_POST"
 export const VOTE_COMMENT = "VOTE_COMMENT"
 export const GET_SELECTED_POST_COMMENTS = "GET_SELECTED_POST_COMMENTS"
+export const DELETE_COMMENT = "DELETE_COMMENT"
 
 function vote_on_post(post) {
   return {
@@ -89,5 +90,19 @@ export function getSelectPostCommentsThunk(post_id) {
   return function(dispatch){
     readableAPI.getAllPostComments(post_id)
     .then(comments => dispatch(get_select_post_comments(comments)))
+  }
+}
+
+function deleteComment(comment) {
+  return {
+    type: DELETE_COMMENT,
+    comment
+  }
+}
+
+export function deleteCommentThunk(comment_id){
+  return function(dispatch) {
+    readableAPI.deleteCommentById(comment_id)
+    .then(response => dispatch(deleteComment(response)))
   }
 }
