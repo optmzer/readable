@@ -4,6 +4,7 @@ import Header from './header'
 import Body from './body'
 import Footer from './footer'
 import Post from './post'
+import Create from './create'
 
 class HomePage extends Component {
 
@@ -26,6 +27,9 @@ class HomePage extends Component {
         <Switch>
           <Route exact path="/"
            component={({match}) => <Body match={match} />}
+          />
+          <Route exact path="/create"
+          component={({match}) => <Create match={match}/>}
           />
           <Route exact path="/:post_category"
            component={({match}) => <Body match={match} />}

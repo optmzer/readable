@@ -1,6 +1,5 @@
 import React, {Component} from 'react'
 import * as Fa from 'react-icons/lib/fa'
-import * as IoAndroid from 'react-icons/lib/io'
 import Comment from './comment'
 import '../style/post.css'
 import { connect } from 'react-redux'
@@ -54,12 +53,12 @@ class Post extends Component {
             <div className="user-info">
               <div className="voting-block">
                 <a className="vote-up"
-                    onClick={() => this.props.voteOnPost(post.id, "upVote")}
-                ><Fa.FaArrowUp size={22}/></a>
+                  onClick={() => this.props.voteOnPost(post.id, "upVote")}
+                ><Fa.FaChevronUp size={22}/></a>
                 <div className="vote-count">{post.voteScore}</div>
                 <a className="vote-down"
                   onClick={() => this.props.voteOnPost(post.id, "downVote")}
-                ><Fa.FaArrowDown size={22}/></a>
+                ><Fa.FaChevronDown size={22}/></a>
               </div>
               <span className="user-avatar">
                 <Fa.FaFileImageO size={75}/>
@@ -72,17 +71,19 @@ class Post extends Component {
                   <h3>{post.title}</h3>
                 </div>
                 <div>
-                  <span className="published-time">published on Time: {`${timestamp}`} | </span>
-                  <span className="comments-count">
-                    Comment count: {post.commentCount}
-                  </span>
+                  <p>
+                    <span className="published-time">published on Time: {`${timestamp}`} | </span>
+                    <span className="comments-count">
+                      Comment count: {post.commentCount}
+                    </span>
+                  </p>
                 </div>
               </div>
               <div className="edit-tools">
-                <a ><IoAndroid.IoEdit className="edit-btn" size={25} /></a>
+                <a ><Fa.FaEdit className="edit-btn" size={25} /></a>
                 <a
                   onClick={() => this.props.deletePost(post.id)}
-                  ><IoAndroid.IoAndroidDelete className="delete-btn" size={25} /></a>
+                  ><Fa.FaTrashO className="delete-btn" size={25} /></a>
               </div>
             </div>
           }
@@ -90,28 +91,38 @@ class Post extends Component {
             {
               !_.isEmpty(post) &&
               <section>
-              <div className="post-title">
-                <h2>{post.title}</h2>
-              </div>
-              <div className="post-body">
-                <article className="post-text">
-                  {post.body}
-                </article>
-              </div>
+                <div className="post-title">
+                  <h2>{post.title}</h2>
+                </div>
+                <div className="post-body">
+                  <article className="post-text">
+                    {post.body}
+                  </article>
+                </div>
+                <section className="add-comment">
+                  <form action="submit">
+                    <p>Comment: </p>
+                      <textarea name="post-input" rows="4" cols="80"></textarea>
+                    <br/>
+                    <input type="submit" value="Submit"/>
+                    <input type="reset" value="Reset Form"/>
+                  </form>
+                </section>
               </section>
             }
-            <section className="comment-section">
+            <section className="comment-section">{
+              !_.isEmpty(post) && comments &&
               <ul>{
-                !_.isEmpty(post) && comments &&
-                  comments.map(comment => {
-                    return  (
-                      <li key={comment.id}>
-                        <Comment comment_data={comment}/>
-                      </li>
-                    )
-                  })
+                comments.map(comment => {
+                  return  (
+                    <li key={comment.id}>
+                      <Comment comment_data={comment}/>
+                    </li>
+                  )
+                })
               }
               </ul>
+            }
             </section>
           </div>
         </div>

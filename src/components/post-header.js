@@ -1,6 +1,5 @@
 import React, {Component} from 'react'
 import * as Fa from 'react-icons/lib/fa'
-import * as IoAndroid from 'react-icons/lib/io'
 import { Link } from 'react-router-dom'
 import {
         selectPostThunk,
@@ -48,11 +47,11 @@ class PostHeader extends Component {
           <div className="voting-block">
             <a className="vote-up"
               onClick={() => this.props.voteOnPost(post_id, "upVote")}
-            ><Fa.FaArrowUp size={22}/></a>
+            ><Fa.FaChevronUp size={22}/></a>
             <div className="vote-count">{voteScore}</div>
             <a className="vote-down"
               onClick={() => this.props.voteOnPost(post_id, "downVote")}
-            ><Fa.FaArrowDown size={22}/></a>
+            ><Fa.FaChevronDown size={22}/></a>
           </div>
 
             <span className="user-avatar">
@@ -86,10 +85,11 @@ class PostHeader extends Component {
             </div>
 
           <div className="edit-tools">
-            <a ><IoAndroid.IoEdit className="edit-btn" size={25} /></a>
+            <a className="edit-btn"><Fa.FaEdit className="edit-btn" size={30} /></a>
             <a
+              className="delete-btn"
               onClick={() => this.props.deletePost(post_id)}
-            ><IoAndroid.IoAndroidDelete className="delete-btn" size={25} /></a>
+            ><Fa.FaTrashO className="delete-btn" size={30} /></a>
           </div>
       </div>
     )//return()

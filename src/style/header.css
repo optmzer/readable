@@ -6,7 +6,7 @@
   border-bottom: #e8491d 3px solid;
   position: fixed;
   top: 0;
-  width: 100%;
+  width: 80%;
 }
 
 .home-page-body {
@@ -74,6 +74,8 @@
 
 .categories a {
   min-height: 30px;
+  min-width: 60px;
+  text-align: center;
 }
 
 /* main-page */
@@ -88,7 +90,6 @@
   min-height: 50px;
   /* border-top: #000 2px solid; */
   border-bottom: #000 2px solid;
-
 }
 
 .user-info h3{
@@ -99,12 +100,20 @@
 .voting-block {
   grid-column: 1/2;
 }
-.user-avetar {
+
+.vote-count {
+  padding: 0;
+  margin-top: .4em;
+}
+
+.user-avatar {
   grid-column: 2/3;
+  margin-top: .3em;
 }
 .post-info {
-  grid-column: 3/12;
+  grid-column: 3/10;
   text-align: left;
+  /* background-color: red; */
 }
 
 .post-info h3{
@@ -114,9 +123,17 @@
 }
 
 .edit-tools {
+  grid-column: 10/13;
+  text-align: center;
+  /* background-color: yellow; */
 }
 
+.edit-tools a {
+  padding-right: 1em;
+}
 .edit-btn {
+  /* float: left; */
+
 }
 
 footer {

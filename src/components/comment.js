@@ -1,6 +1,5 @@
 import React, {Component} from 'react'
 import * as Fa from 'react-icons/lib/fa'
-import * as IoAndroid from 'react-icons/lib/io'
 import '../style/comments.css'
 import { connect } from 'react-redux'
 import { voteOnCommentThunk, deleteCommentThunk } from '../actions'
@@ -36,11 +35,11 @@ class Comment extends Component {
         <div className="voting-block">
           <a className="vote-up"
           onClick={() => this.props.voteOnCommentThunk(comment_data.id, "upVote")}
-            ><Fa.FaArrowUp size={15} /></a>
+            ><Fa.FaChevronUp size={15} /></a>
           <div className="vote-count">{comment_data.voteScore}</div>
           <a className="vote-down"
             onClick={() => this.props.voteOnCommentThunk(comment_data.id, "downVote")}
-          ><Fa.FaArrowDown size={15}/></a>
+          ><Fa.FaChevronDown size={15}/></a>
         </div>
         <span className="user-avatar">
           <a><Fa.FaFileImageO size={50}/></a>
@@ -54,10 +53,10 @@ class Comment extends Component {
           </div>
         </div>
         <div className="edit-tools">
-          <a ><IoAndroid.IoEdit className="edit-btn" size={25} /></a>
+          <a ><Fa.FaEdit className="edit-btn" size={25} /></a>
           <a
             onClick={() => this.props.deleteComment(comment_data.id)}
-          ><IoAndroid.IoAndroidDelete className="delete-btn" size={25} /></a>
+          ><Fa.FaTrashO className="delete-btn" size={25} /></a>
         </div>
       </div>
       <div className="comment-body">

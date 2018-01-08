@@ -8,6 +8,7 @@ import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 import {selectCategoryThunk} from '../actions'
+import * as Fa from 'react-icons/lib/fa'
 // import { MdHome, MdAddBox} from 'react-icons/lib/md'
 import '../style/header.css'
 
@@ -162,9 +163,9 @@ class Header extends Component {
                   id="home"
                   className={this.state.category_home}
                   to="/"
-                  onClick={ (event) => this.getCategory(event.target.id)}
+                  onClick={ () => this.getCategory("home")}
                 >
-                  Home
+                  <Fa.FaHome size={30}/>
                 </Link>
               </li>
               <li>
@@ -202,9 +203,10 @@ class Header extends Component {
                   id="create"
                   className={this.state.category_create}
                   to="/create"
-                  onClick={ (event) => this.getCategory(event.target.id)}
+                  onClick={ () => this.getCategory("create")}
+                  value="Create Post"
                 >
-                  Add Post
+                  <Fa.FaEdit size={30} />
                 </Link>
               </li>
             </ul>

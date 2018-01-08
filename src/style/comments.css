@@ -19,7 +19,7 @@
 .comment-header .comment-info {
   padding-top: 15%;
   text-align: left;
-  grid-column: 3/11;
+  grid-column: 3/9;
 }
 
 .comment-header .vote-count {
