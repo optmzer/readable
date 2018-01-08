@@ -23,7 +23,9 @@ class HomePage extends Component {
 
     return(
       <div>
-        <Header />
+        < Route
+        component={({location}) => <Header location={location}/>}
+        />
         <Switch>
           <Route exact path="/"
            component={({match}) => <Body match={match} />}

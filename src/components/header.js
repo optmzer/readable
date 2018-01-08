@@ -1,11 +1,9 @@
 /**
- * SVG pictures do not have id and className attribute
- they cannot be referenced via link, must be supplied from css as a background
- image.
+
  */
 
 import React, { Component } from 'react'
-import { Link } from 'react-router-dom'
+import { NavLink } from 'react-router-dom'
 import { connect } from 'react-redux'
 import {selectCategoryThunk} from '../actions'
 import * as Fa from 'react-icons/lib/fa'
@@ -15,11 +13,6 @@ import '../style/header.css'
 class Header extends Component {
 
   state = {
-    category_home: "active",
-    category_react: "",
-    category_redux: "",
-    category_udacity: "",
-    category_create: "",
     sort_new: "active",
     sort_popular: "",
     sort_author: "",
@@ -29,56 +22,19 @@ class Header extends Component {
   getCategory(category){
     switch (category) {
       case "react":
-        this.setState({
-          category_home: "",
-          category_react: "active",
-          category_redux: "",
-          category_udacity: "",
-          category_create: "",
-        })
-        this.props.selectCategoryThunk(category)
+        category="react"
         break
       case "redux":
-        this.setState({
-          category_home: "",
-          category_react: "",
-          category_redux: "active",
-          category_udacity: "",
-          category_create: "",
-        })
-        this.props.selectCategoryThunk(category)
+        category="redux"
         break
       case "udacity":
-        this.setState({
-          category_home: "",
-          category_react: "",
-          category_redux: "",
-          category_udacity: "active",
-          category_create: "",
-        })
-        this.props.selectCategoryThunk(category)
-        break
-      case "create":
-        this.setState({
-          category_home: "",
-          category_react: "",
-          category_redux: "",
-          category_udacity: "",
-          category_create: "active",
-        })
-        this.props.selectCategoryThunk(category)
+        category="udacity"
         break
       default:
-        this.setState({
-          category_home: "active",
-          category_react: "",
-          category_redux: "",
-          category_udacity: "",
-          category_create: "",
-        })
-        this.props.selectCategoryThunk(category)
+        category="home"
         break
     }//switch
+    this.props.selectCategoryThunk(category)
   }//getCategory()
 
   getSortSelection(selection) {
@@ -159,55 +115,44 @@ class Header extends Component {
           <nav className="categories">
             <ul>
               <li>
-                <Link
-                  id="home"
-                  className={this.state.category_home}
-                  to="/"
+                <NavLink
+                  exact to="/"
                   onClick={ () => this.getCategory("home")}
                 >
                   <Fa.FaHome size={30}/>
-                </Link>
+                </NavLink>
               </li>
               <li>
-                <Link
-                  id="udacity"
-                  className={this.state.category_udacity}
-                  to="/udacity"
-                  onClick={ (event) => this.getCategory(event.target.id)}
+                <NavLink
+                  exact to="/udacity"
+                  onClick={ () => this.getCategory("udacity")}
                 >
                   Udacity
-                </Link>
+                </NavLink>
               </li>
               <li>
-                <Link
-                  id="react"
-                  to="/react"
-                  className={this.state.category_react}
-                  onClick={ (event) => this.getCategory(event.target.id)}
+                <NavLink
+                  exact to="/react"
+                  onClick={ () => this.getCategory("react")}
                 >
                   React
-                </Link>
+                </NavLink>
               </li>
               <li>
-                <Link
-                  id="redux"
-                  className={this.state.category_redux}
-                  to="/redux"
-                  onClick={ (event) => this.getCategory(event.target.id)}
+                <NavLink
+                  exact to="/redux"
+                  onClick={ () => this.getCategory("redux")}
                 >
                   Redux
-                </Link>
+                </NavLink>
               </li>
               <li>
-                <Link
-                  id="create"
-                  className={this.state.category_create}
-                  to="/create"
+                <NavLink
+                  exact to="/create"
                   onClick={ () => this.getCategory("create")}
-                  value="Create Post"
                 >
                   <Fa.FaEdit size={30} />
-                </Link>
+                </NavLink>
               </li>
             </ul>
           </nav>
