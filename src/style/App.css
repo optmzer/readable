@@ -12,7 +12,7 @@ body {
   line-height: 1.5;
   text-align: center;
   width: 80%;
-  padding: 0 10% 0 10%;
+  margin: auto;
 }
 
 a {

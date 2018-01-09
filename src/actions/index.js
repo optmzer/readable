@@ -7,6 +7,8 @@ export const VOTE_COMMENT = "VOTE_COMMENT"
 export const GET_SELECTED_POST_COMMENTS = "GET_SELECTED_POST_COMMENTS"
 export const DELETE_COMMENT = "DELETE_COMMENT"
 export const DELETE_POST = "DELETE_POST"
+export const SUBMIT_POST = "SUBMIT_POST"
+export const SUBMIT_COMMENT = "SUBMIT_COMMENT"
 
 function vote_on_post(post) {
   return {
@@ -119,5 +121,19 @@ export function deletePostThunk(post_id){
   return function(dispatch) {
     readableAPI.deletePostById(post_id)
     .then(response => dispatch(delete_post(response)))
+  }
+}
+
+function submit_post(post) {
+  return {
+    type: SUBMIT_POST,
+    post
+  }
+}
+
+export function submitPostThunk(post) {
+  return function(dispatch){
+    readableAPI.submitPost(post)
+    .then(response => dispatch(submit_post(response)))
   }
 }

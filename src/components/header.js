@@ -84,33 +84,13 @@ class Header extends Component {
         <div className="nav-bar">
           <div className="App-title"><h1>Readable</h1></div>
           <nav className="categories-sort">
-            <ul >
-              <li>sort: </li>
-              <li className={this.state.sort_new}>
-                <a
-                  id="sort_new"
-                  onClick={(event) => this.getSortSelection(event.target.id)}
-                >New</a>
-              </li>
-              <li className={this.state.sort_popular}>
-                <a
-                  id="sort_popular"
-                  onClick={(event) => this.getSortSelection(event.target.id)}
-                >Popular</a>
-              </li>
-              <li className={this.state.sort_author}>
-                <a
-                  id="sort_author"
-                  onClick={(event) => this.getSortSelection(event.target.id)}
-                >Author</a>
-              </li>
-              <li className={this.state.sort_title}>
-                <a
-                  id="sort_title"
-                  onClick={(event) => this.getSortSelection(event.target.id)}
-                >Title</a>
-              </li>
-            </ul>
+              <select name="categories-sort" >
+                <option value="Sort posts by" defaultValue>Sort posts by</option>
+                <option value="new" >New</option>
+                <option value="popular">Popular</option>
+                <option value="author">Author</option>
+                <option value="title">Title</option>
+              </select>
           </nav>
           <nav className="categories">
             <ul>

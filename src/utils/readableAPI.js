@@ -71,7 +71,7 @@ export const getAllPosts = () => (
      category: Any of the categories listed in categories.js.
      Feel free to extend this list as you desire.
 */
-export const addPost = (post_data) => (
+export const submitPost = (post_data) => (
   fetch(`${URL}/posts`, {
     headers: headers,
     body: JSON.stringify(post_data),

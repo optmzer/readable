@@ -31,17 +31,20 @@ class HomePage extends Component {
            component={({match}) => <Body match={match} />}
           />
           <Route exact path="/create"
-          component={({match}) => <Create match={match}/>}
+            component={
+              ({match, history}) => 
+              <Create match={match} history={history}/>
+            }
           />
           <Route exact path="/:post_category"
-           component={({match}) => <Body match={match} />}
+            component={({match}) => <Body match={match} />}
           />
           <Route exact path={"/:post_category/:post_id"}
-          component={({match}) =>
-            <Post match={match} />
-          }
+            component={({match}) => <Post match={match} />
+            }
           />
         </Switch>
+
         <Footer />
       </div>
     )//return()

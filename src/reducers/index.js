@@ -7,6 +7,8 @@ import {
   GET_SELECTED_POST_COMMENTS,
   DELETE_COMMENT,
   DELETE_POST,
+  SUBMIT_POST,
+  // SUBMIT_COMMENT
 } from '../actions'
 
 /**
@@ -70,6 +72,10 @@ function select_post_reducer(state, action) {
       return {
         post: action.post
       }
+    case SUBMIT_POST:
+      return {
+        post: action.post
+      }
     case VOTE_POST:
       if(state.post && action.post.id === state.post.id){
         return {
@@ -77,6 +83,7 @@ function select_post_reducer(state, action) {
         }
       }
       return {...state}
+
     case DELETE_POST:
       if(state.post && action.post.id === state.post.id){
         return {
