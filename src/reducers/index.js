@@ -104,7 +104,7 @@ function selected_post_comments_reducer(state, action) {
         comments: action.comments
       }
     case VOTE_COMMENT:
-      if(state.comments){
+      if(state.comments){//if there are any comments
           return {
             comments: state.comments.map(comment => {
                       if(comment.id === action.comment.id){
@@ -116,6 +116,17 @@ function selected_post_comments_reducer(state, action) {
           }
         }//if
       return {...state}
+
+    // case SUBMIT_COMMENT://?????? does not mutate state.Why???
+    //it did not allow me to change state directly
+    //copy them mutate.
+      // let new_comments = state.comments.map(comment => comment)
+      // new_comments.push(action.comment)
+      // console.log("L124 reducer state ", state);
+      // console.log("L125 reducer new_comments ", new_comments);
+      // return {
+      //   comments: new_comments
+      // }
     case DELETE_COMMENT:
       if(state.comments.length !== 0){
         return {
@@ -123,7 +134,6 @@ function selected_post_comments_reducer(state, action) {
         }
       }
       return {...state}
-
     default:
       return {...state}
   }

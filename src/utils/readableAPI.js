@@ -181,7 +181,7 @@ POST /comments
     author: String
     parentId: Should match a post id in the database.
 */
-export const addComment = (comment_data) => (
+export const submitComment = (comment_data) => (
   fetch(`${URL}/comments`, {
     headers: headers,
     body: JSON.stringify(comment_data),

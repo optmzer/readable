@@ -19,46 +19,50 @@ class Create extends Component {
   }
 
 //TODO: Create a unique ID so posts do not rewrite itself over the other one.
+//activateButton does not really work. Find out why.
+  activateButton(event) {
+    if(event.target.form[1].value !== "Select category..."
+        && event.target.form[2].value
+        && event.target.form[3].value
+        && event.target.form[4].value){
+        console.log("L27 disabled: false ", this.state);
+        this.setState({disabled: false})
+      }
+  }
 
-  formHandler(event){
+  handleForm(event){
 
     event.preventDefault()
-    console.log("L11 create event.target", event.target);
 
-    if(event.target[0].value !== "Select category..." &&
-      event.target[1].value && event.target[2].value){
+    if(event.target[1].value !== "Select category..."
+        && event.target[2].value
+        && event.target[3].value
+        && event.target[4].value){
 
-      let post_data ={
-        id: Math.random() * 1000000000, //- UUID should be fine, but any unique id will work
-        timestamp: Date.now(),          //- timestamp in whatever format you like, you can use Date.now() if you like
-        category: event.target[1].value,   //- String
-        author: event.target[2].value,     //- String
-        title: event.target[3].value,  //Any of the categories listed in categories.js.
-        body: event.target[4].value,    //- String
+        let post_data ={
+          id: Math.random() * 10000000000000000, //- UUID should be fine, but any unique id will work
+          timestamp: Date.now(),          //- timestamp in whatever format you like, you can use Date.now() if you like
+          category: event.target[1].value,   //- String
+          author: event.target[2].value,     //- String
+          title: event.target[3].value,  //Any of the categories listed in categories.js.
+          body: event.target[4].value,    //- String
       }
 
-      this.props.history.replace("/" + post_data.category + "/" + post_data.id)
-
-      // console.log("L22 post_data ", post_data);
       this.props.submitPost(post_data)
-
-      this.setState({disabled: false})
-
+      //Open Post details page after complete
+      this.props.history.replace("/" + post_data.category + "/" + post_data.id)
     }
 
-
-  }//formHandler()
+  }//handleForm()
 
   render() {
-    // console.log("L38 create this.props ", this.props);
-    // console.log("L39 create this.state ", this.state);
-
     return(
       <div className="create-post">
       <Fa.FaFileImageO size={75} />
         <form
           id="submit-form"
-          onSubmit={(data) => this.formHandler(data)}
+          onChange={(event) => this.activateButton(event)}
+          onSubmit={(event) => this.handleForm(event)}
           method="POST"
         >
           <fieldset>
@@ -75,7 +79,7 @@ class Create extends Component {
             <br/>
               <textarea name="post-body" rows="8" cols="80"></textarea>
             <br/>
-              <input type="submit" value="Post" />
+              <input type="submit" value="Post" disabled={this.state.disabled}/>
             <input type="reset" value="Reset Form"/>
             <button
               type="button"

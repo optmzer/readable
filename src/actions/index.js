@@ -27,21 +27,7 @@ export function voteOnPostThunk (post_id, vote) {
   }
 }
 
-function vote_on_comment(comment) {
-  console.log("L27 vote_on_comment comment ", comment);
-  return {
-    type: VOTE_COMMENT,
-    comment
-  }
-}
 
-export function voteOnCommentThunk(comment_id, vote) {
-  return function(dispatch) {
-    return readableAPI.voteOnComment(comment_id, vote).then (
-      (comment) => dispatch(vote_on_comment(comment))
-    )
-  }
-}
 
 //Combines 3 different actions into one with new property.
 function select_category(posts) {
@@ -82,33 +68,6 @@ export function selectPostThunk(post_id){
   }
 }
 
-function get_select_post_comments(comments) {
-  return {
-    type: GET_SELECTED_POST_COMMENTS,
-    comments
-  }
-}
-
-export function getSelectPostCommentsThunk(post_id) {
-  return function(dispatch){
-    readableAPI.getAllPostComments(post_id)
-    .then(comments => dispatch(get_select_post_comments(comments)))
-  }
-}
-
-function delete_comment(comment) {
-  return {
-    type: DELETE_COMMENT,
-    comment
-  }
-}
-
-export function deleteCommentThunk(comment_id){
-  return function(dispatch) {
-    readableAPI.deleteCommentById(comment_id)
-    .then(response => dispatch(delete_comment(response)))
-  }
-}
 
 function delete_post(post){
   return {
@@ -135,5 +94,65 @@ export function submitPostThunk(post) {
   return function(dispatch){
     readableAPI.submitPost(post)
     .then(response => dispatch(submit_post(response)))
+  }
+}
+
+// ======== COMMENTS SECTION ============
+
+function get_select_post_comments(comments) {
+  return {
+    type: GET_SELECTED_POST_COMMENTS,
+    comments
+  }
+}
+
+export function getSelectPostCommentsThunk(post_id) {
+  return function(dispatch){
+    readableAPI.getAllPostComments(post_id)
+    .then(comments => dispatch(get_select_post_comments(comments)))
+  }
+}
+
+function vote_on_comment(comment) {
+  console.log("L117 vote_on_comment comment ", comment);
+  return {
+    type: VOTE_COMMENT,
+    comment
+  }
+}
+
+export function voteOnCommentThunk(comment_id, vote) {
+  return function(dispatch) {
+    return readableAPI.voteOnComment(comment_id, vote).then (
+      (comment) => dispatch(vote_on_comment(comment))
+    )
+  }
+}
+
+function delete_comment(comment) {
+  return {
+    type: DELETE_COMMENT,
+    comment
+  }
+}
+
+export function deleteCommentThunk(comment_id){
+  return function(dispatch) {
+    readableAPI.deleteCommentById(comment_id)
+    .then(response => dispatch(delete_comment(response)))
+  }
+}
+
+function submit_comment(comment) {
+  return {
+    type: SUBMIT_COMMENT,
+    comment
+  }
+}
+
+export function submitCommentThunk(comment){
+  return function(dispatch) {
+    readableAPI.submitComment(comment)
+    .then(response => dispatch(submit_comment(response)))
   }
 }

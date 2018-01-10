@@ -7,7 +7,8 @@ import {
   selectPostThunk,
   getSelectPostCommentsThunk,
   voteOnPostThunk,
-  deletePostThunk
+  deletePostThunk,
+  submitCommentThunk
 } from '../actions'
 import * as _ from 'underscore'
 
@@ -19,19 +20,52 @@ import * as _ from 'underscore'
 
 class Post extends Component {
 
+  state={
+    disabled: true
+  }
+
+  activateButton(event){
+      if(event.target.form[1].value && event.target.form[2].value){
+        this.setState({ disabled: false })
+    }
+  }//activateButton()
+
+  handleComment(event) {
+
+    event.preventDefault()
+      if(event.target[1].value && event.target[2].value){
+        let comment_object = {
+          id: "com" + Math.random() * 10000000000000000, //Any unique ID. As with posts, UUID is probably the best here.
+          timestamp: Date.now(),  //timestamp. Get this however you want.
+          body: event.target[2].value, //String
+          author: event.target[1].value, //String
+          parentId: this.props.match.params.post_id, //Should match a post id in the database.
+        }
+
+        //postCommentThunk
+        this.props.submitComment(comment_object)
+
+        //Reset form after submit
+        event.target.reset()
+        this.setState({disabled: true})
+
+        //get fresh list of comments on update
+        this.props.getSelectPostCommentsThunk(this.props.post.id)
+    }
+  }//handleComment()
 
   componentWillMount() {
-    if(!this.props.post){
-      this.props.selectPostThunk(this.props.match.params.post_id)
-      this.props.getSelectPostCommentsThunk(this.props.match.params.post_id)
-    }
+    //get selected post
+    this.props.selectPostThunk(this.props.match.params.post_id)
+    this.props.getSelectPostCommentsThunk(this.props.match.params.post_id)
+
+    // //if comments from previous post exist clear them from
+    // if(this.props.comments){
+    //   this.props.comment
+    // }
   }
 
   render(){
-  // console.log("L23 Post this.props = ", this.props);
-  // console.log("L24 Post this.props.match = ", this.props.match);
-  // console.log("L25 Post this.state = ", this.state);
-
 
   const { post, comments } = this.props
   let timestamp
@@ -44,7 +78,7 @@ class Post extends Component {
     timestamp = new Date(post.timestamp).toLocaleTimeString("en-NZ", options)
   }
 
-  console.log("L47 post ", this.props);
+  console.log("L80 post ", this.props);
 
   return(
         <div className="post">
@@ -100,12 +134,20 @@ class Post extends Component {
                   </article>
                 </div>
                 <section className="add-comment">
-                  <form action="submit">
-                    <p>Comment: </p>
+                  <form
+                    method="POST"
+                    onChange={(event) => this.activateButton(event)}
+                    onSubmit={(event) => this.handleComment(event)}
+                  >
+                    <fieldset>
+                      <legend>Comment</legend>
+                      Author: <input className="comment-author" type="text" name="author" />
+                      <br/>
                       <textarea name="post-input" rows="4" cols="80"></textarea>
-                    <br/>
-                    <input type="submit" value="Submit"/>
-                    <input type="reset" value="Reset Form"/>
+                      <br/>
+                      <input type="submit" value="Submit" disabled={this.state.disabled}/>
+                      <input type="reset" value="Reset Form"/>
+                    </fieldset>
                   </form>
                 </section>
               </section>
@@ -144,7 +186,8 @@ function mapDispatchToProps(dispatch) {
     getSelectPostCommentsThunk: (post_id) => dispatch(getSelectPostCommentsThunk(post_id)),
     selectPostThunk: (post_id) => dispatch(selectPostThunk(post_id)),
     voteOnPost: (post_id, vote) => dispatch(voteOnPostThunk(post_id, vote)),
-    deletePost: (post_id) => dispatch(deletePostThunk(post_id))
+    deletePost: (post_id) => dispatch(deletePostThunk(post_id)),
+    submitComment: (comment) => dispatch(submitCommentThunk(comment)),
   }
 }
 

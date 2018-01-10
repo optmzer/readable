@@ -17,7 +17,7 @@ class Comment extends Component {
 
   render() {
 
-    console.log("L12 Comment ", this.props)
+    // console.log("L12 Comment ", this.props)
 
     const { comment_data } = this.props
     //Date options
