@@ -1,5 +1,10 @@
-.create-post {
-  padding-top: 90px;
-  width: 80%;
-  /* background-color: yellow; */
+.user-info-create {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  min-height: 50px;
+  padding: .5em 0 .5em 0;
+}
+
+.user-avatar-create {
+  grid-column: 1/2 ;
 }

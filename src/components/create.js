@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import '../style/create.css'
+import '../style/header.css'
 import * as Fa from 'react-icons/lib/fa'
 import { connect } from 'react-redux'
 import { submitPostThunk } from '../actions'
@@ -57,8 +58,12 @@ class Create extends Component {
 
   render() {
     return(
-      <div className="create-post">
-      <Fa.FaFileImageO size={75} />
+      <div className="home-page-body">
+      <div className="user-info-create">
+        <div className="user-avatar-create">
+          <Fa.FaFileImageO size={75} />
+        </div>
+      </div>
         <form
           id="submit-form"
           onChange={(event) => this.activateButton(event)}

@@ -10,7 +10,8 @@
 }
 
 .home-page-body {
-  margin-top: 83px;
+  margin-top: 90px;
+  min-height: 580px;
 }
 
 .nav-bar a {
@@ -90,9 +91,15 @@
   min-height: 50px;
   /* border-top: #000 2px solid; */
   border-bottom: #000 2px solid;
+  padding: .3em 0 .3em 0;
 }
 
 .user-info h3{
+  padding: 0;
+  margin: 0;
+}
+
+.vote-up, .vote-down, .vote-count {
   padding: 0;
   margin: 0;
 }
@@ -101,14 +108,17 @@
   grid-column: 1/2;
 }
 
+.vote-down {
+
+}
+
 .vote-count {
-  padding: 0;
-  margin-top: .4em;
+  padding-top: .3em;
 }
 
 .user-avatar {
   grid-column: 2/3;
-  margin-top: .3em;
+  padding: .3em 0 .3em 0;
 }
 .post-info {
   grid-column: 3/10;
@@ -139,4 +149,5 @@
 footer {
   background: #e8491d;
   min-height: 40px;
+  /* bottom: 0; */
 }

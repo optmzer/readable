@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 import * as Fa from 'react-icons/lib/fa'
 import Comment from './comment'
 import '../style/post.css'
+import '../style/header.css'
 import { connect } from 'react-redux'
 import {
   selectPostThunk,
@@ -25,7 +26,8 @@ class Post extends Component {
   }
 
   activateButton(event){
-      if(event.target.form[1].value && event.target.form[2].value){
+    console.log("L28 post event.target ", event.target);
+      if(event.target.form[1].value && event.target.form[4].value){
         this.setState({ disabled: false })
     }
   }//activateButton()
@@ -33,11 +35,11 @@ class Post extends Component {
   handleComment(event) {
 
     event.preventDefault()
-      if(event.target[1].value && event.target[2].value){
+      if(event.target[1].value && event.target[4].value){
         let comment_object = {
           id: "com" + Math.random() * 10000000000000000, //Any unique ID. As with posts, UUID is probably the best here.
           timestamp: Date.now(),  //timestamp. Get this however you want.
-          body: event.target[2].value, //String
+          body: event.target[4].value, //String
           author: event.target[1].value, //String
           parentId: this.props.match.params.post_id, //Should match a post id in the database.
         }
@@ -81,7 +83,7 @@ class Post extends Component {
   console.log("L80 post ", this.props);
 
   return(
-        <div className="post">
+        <div className="home-page-body">
           {
             !_.isEmpty(post) &&
             <div className="user-info">
@@ -135,18 +137,32 @@ class Post extends Component {
                 </div>
                 <section className="add-comment">
                   <form
+                    className="comment-form"
                     method="POST"
                     onChange={(event) => this.activateButton(event)}
                     onSubmit={(event) => this.handleComment(event)}
                   >
                     <fieldset>
                       <legend>Comment</legend>
-                      Author: <input className="comment-author" type="text" name="author" />
-                      <br/>
-                      <textarea name="post-input" rows="4" cols="80"></textarea>
-                      <br/>
-                      <input type="submit" value="Submit" disabled={this.state.disabled}/>
-                      <input type="reset" value="Reset Form"/>
+                        <span className="comment-author">
+                          <span>Author: </span>
+                          <input  type="text" name="author" />
+                        </span>
+                        <span className="input-btn">
+                          <input
+                            type="submit"
+                            value="Submit"
+                            disabled={this.state.disabled}/>
+                        </span>
+                        <span className="input-btn">
+                          <input type="reset" value="Reset Form"/>
+                        </span>
+                      <div className="comment-body">
+                        <textarea
+                          name="post-input"
+                          rows="4"
+                          cols="80"></textarea>
+                      </div>
                     </fieldset>
                   </form>
                 </section>

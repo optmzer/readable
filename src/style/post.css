@@ -1,7 +1,3 @@
-.post {
-  padding-top: 85px;
-
-}
 
 .post-block {
   /* padding-left: 5%; */
@@ -13,13 +9,35 @@
 }
 
 .post-text {
-  border-bottom: #E8491D 2px solid;
+  border-bottom: #E8491D 1px solid;
   padding-bottom: 1.5em;
 }
 
 .post-block p {
   padding: 0.5em 1em;
   text-align: justify;
+}
+
+.comment-form {
+  padding: .5em 0 1em 0;
+  text-align: left;
+}
+
+.comment-author {
+  /* background-color: yellow; */
+  min-height: 2em;
+  min-width: 30%;
+  padding-right: 11.5em;
+}
+
+.comment-body {
+  padding-top: .5em;
+}
+
+.input-btn {
+  style: none;
+  /* border: none; */
+  padding-left: 2em;
 }
 
 .comment-section li:nth-child(even) {

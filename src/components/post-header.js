@@ -45,13 +45,13 @@ class PostHeader extends Component {
     return(
       <div className="user-info">
           <div className="voting-block">
-            <a className="vote-up"
+            <a
               onClick={() => this.props.voteOnPost(post_id, "upVote")}
-            ><Fa.FaChevronUp size={22}/></a>
+            ><Fa.FaChevronUp className="vote-up" size={22}/></a>
             <div className="vote-count">{voteScore}</div>
-            <a className="vote-down"
+            <a
               onClick={() => this.props.voteOnPost(post_id, "downVote")}
-            ><Fa.FaChevronDown size={22}/></a>
+            ><Fa.FaChevronDown className="vote-down" size={22}/></a>
           </div>
 
             <span className="user-avatar">
