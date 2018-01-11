@@ -1,20 +1,15 @@
-/**
-
- */
-
 import React, { Component } from 'react'
 import { NavLink } from 'react-router-dom'
 import { connect } from 'react-redux'
 import {selectCategoryThunk, sortPosts} from '../actions'
 import * as Fa from 'react-icons/lib/fa'
-// import { MdHome, MdAddBox} from 'react-icons/lib/md'
 import '../style/header.css'
 
-class Header extends Component {
+/**
+*Header for the App. Has nav controls and sort selector.
+*/
 
-  // state = {
-  //   selection: "new"
-  // }
+class Header extends Component {
 
   getCategory(category){
     switch (category) {
@@ -35,11 +30,8 @@ class Header extends Component {
   }//getCategory()
 
   getSortSelection(selection) {
-
-    console.log("L38 header - selection - ", selection);
     this.props.sortPosts(selection)
     this.setState({selection})
-
   }//getSortSelection()
 
 
@@ -52,9 +44,8 @@ class Header extends Component {
   }
 
   render() {
-    console.log("L51 header ", this.props);
-    console.log("L52 header ", this.state);
-    // const { selectCategory } = this.props
+    // console.log("L47 header ", this.props);
+    // console.log("L48 header ", this.state);
 
     return(
       <header className="App-header">

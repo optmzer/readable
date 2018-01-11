@@ -25,8 +25,12 @@ class Post extends Component {
     disabled: true
   }
 
+  updatePost() {
+    this.props.selectPostThunk(this.props.match.params.post_id)
+    this.props.getSelectPostCommentsThunk(this.props.match.params.post_id)
+  }
+
   activateButton(event){
-    console.log("L28 post event.target ", event.target);
       if(event.target.form[1].value && event.target.form[4].value){
         this.setState({ disabled: false })
     }
@@ -51,21 +55,17 @@ class Post extends Component {
         event.target.reset()
         this.setState({disabled: true})
 
-        //get fresh list of comments on update
-        this.props.getSelectPostCommentsThunk(this.props.post.id)
+        //get fresh post and list of comments on update
+        this.updatePost()
     }
   }//handleComment()
 
   componentWillMount() {
-    //get selected post
-    this.props.selectPostThunk(this.props.match.params.post_id)
-    this.props.getSelectPostCommentsThunk(this.props.match.params.post_id)
-
-    // //if comments from previous post exist clear them from
-    // if(this.props.comments){
-    //   this.props.comment
-    // }
+    //get selected post on start from the addtess bar
+    this.updatePost()
   }
+
+
 
   render(){
 
