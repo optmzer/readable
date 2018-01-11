@@ -9,6 +9,18 @@ export const DELETE_COMMENT = "DELETE_COMMENT"
 export const DELETE_POST = "DELETE_POST"
 export const SUBMIT_POST = "SUBMIT_POST"
 export const SUBMIT_COMMENT = "SUBMIT_COMMENT"
+export const SORT_POSTS = "SORT_POSTS"
+
+// ====== FILTERING ======
+
+export function sortPosts(sort_param){
+  // console.log("L17 sortPosts action ", sort_param);
+  return {
+    type: SORT_POSTS,
+    sort_param
+  }
+}
+// ====== POST ======
 
 function vote_on_post(post) {
   return {

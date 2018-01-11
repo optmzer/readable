@@ -22,20 +22,22 @@ class Create extends Component {
 //TODO: Create a unique ID so posts do not rewrite itself over the other one.
 //activateButton does not really work. Find out why.
   activateButton(event) {
-    if(event.target.form[1].value !== "Select category..."
+    if(event.target.form[1].value !== "Select category"
         && event.target.form[2].value
         && event.target.form[3].value
         && event.target.form[4].value){
         console.log("L27 disabled: false ", this.state);
         this.setState({disabled: false})
+      } else {
+        this.setState({disabled: true})
       }
   }
 
   handleForm(event){
 
     event.preventDefault()
-
-    if(event.target[1].value !== "Select category..."
+console.log("L37 create ", event.target);
+    if(event.target[1].value !== "Select category"
         && event.target[2].value
         && event.target[3].value
         && event.target[4].value){
@@ -73,19 +75,22 @@ class Create extends Component {
           <fieldset>
             <legend>Create Post</legend>
             Post category:
-            <select id="category_selector" name="post-category" >
-              <option value="Select category">Select category...</option>
+            <select id="category_selector"
+                    name="post-category"
+                    defaultValue="Select category"
+                    required>
+              <option value="Select category" disabled >Select post category</option>
               <option value="react">React</option>
               <option value="redux">Redux</option>
-              <option value="udacity">Udacity</option>
+              <option value="udacity" >Udacity</option>
             </select>
-            Author: <input name="author" type="text"/>
-            Post title: <input id="post-title" name="title" type="text"/>
+            <input name="author" type="text" placeholder="Author"/>
+            <input id="post-title" name="title" type="text" placeholder="Title"/>
             <br/>
               <textarea name="post-body" rows="8" cols="80"></textarea>
             <br/>
-              <input type="submit" value="Post" disabled={this.state.disabled}/>
-            <input type="reset" value="Reset Form"/>
+            <input type="submit" value="Post" disabled={this.state.disabled}/>
+            <input type="reset" value="Reset" onClick={() => this.setState({disabled: true})}/>
             <button
               type="button"
               name="button-cancel"

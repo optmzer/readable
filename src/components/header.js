@@ -5,19 +5,16 @@
 import React, { Component } from 'react'
 import { NavLink } from 'react-router-dom'
 import { connect } from 'react-redux'
-import {selectCategoryThunk} from '../actions'
+import {selectCategoryThunk, sortPosts} from '../actions'
 import * as Fa from 'react-icons/lib/fa'
 // import { MdHome, MdAddBox} from 'react-icons/lib/md'
 import '../style/header.css'
 
 class Header extends Component {
 
-  state = {
-    sort_new: "active",
-    sort_popular: "",
-    sort_author: "",
-    sort_title: ""
-  }
+  // state = {
+  //   selection: "new"
+  // }
 
   getCategory(category){
     switch (category) {
@@ -38,45 +35,25 @@ class Header extends Component {
   }//getCategory()
 
   getSortSelection(selection) {
-    switch (selection) {
-      case "sort_popular":
-        this.setState({
-          sort_new: "",
-          sort_popular: "active",
-          sort_author: "",
-          sort_title: ""
-        })
-        break
-      case "sort_author":
-        this.setState({
-          sort_new: "",
-          sort_popular: "",
-          sort_author: "active",
-          sort_title: ""
-        })
-        break
-      case "sort_title":
-        this.setState({
-          sort_new: "",
-          sort_popular: "",
-          sort_author: "",
-          sort_title: "active"
-        })
-        break
-      default:
-      this.setState({
-        sort_new: "active",
-        sort_popular: "",
-        sort_author: "",
-        sort_title: ""
-      })
-    }//switch
+
+    console.log("L38 header - selection - ", selection);
+    this.props.sortPosts(selection)
+    this.setState({selection})
+
   }//getSortSelection()
 
 
-  render() {
-    // console.log("L18 header ", this.props);
+  componentWillMount() {
+    if(this.props.select_value){
+      this.getSortSelection(this.props.select_value)
+    }else {
+      this.getSortSelection("new")
+    }
+  }
 
+  render() {
+    console.log("L51 header ", this.props);
+    console.log("L52 header ", this.state);
     // const { selectCategory } = this.props
 
     return(
@@ -84,13 +61,19 @@ class Header extends Component {
         <div className="nav-bar">
           <div className="App-title"><h1>Readable</h1></div>
           <nav className="categories-sort">
-              <select name="categories-sort" >
-                <option value="Sort posts by" defaultValue>Sort posts by</option>
-                <option value="new" >New</option>
-                <option value="popular">Popular</option>
-                <option value="author">Author</option>
-                <option value="title">Title</option>
+            <div>
+              <span>Showing posts: </span>
+              <select
+                name="categories-sort"
+                defaultValue={this.props.select_value}
+                onChange={(event) => this.getSortSelection(event.target.value)}
+              >
+                <option value="new" >NEW</option>
+                <option value="popular">POPULAR</option>
+                <option value="author">AUTHOR</option>
+                <option value="title">TITLE</option>
               </select>
+            </div>
           </nav>
           <nav className="categories">
             <ul>
@@ -142,12 +125,18 @@ class Header extends Component {
   }//render()
 }
 
+function mapStateToProps(state) {
+  const {sort_posts_reducer} = state
+  return {
+    select_value: sort_posts_reducer.select_value
+  }
+}
 
 function mapDispatchToProps(dispatch) {
   return {
     selectCategoryThunk: (category) => {dispatch(selectCategoryThunk(category))},
-    // reserved for filtering
+    sortPosts: (sort_param) => {dispatch(sortPosts(sort_param))}
   }
 }
 
-export default connect(null, mapDispatchToProps)(Header)
+export default connect(mapStateToProps, mapDispatchToProps)(Header)

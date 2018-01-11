@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 import PostHeader from './post-header'
 import { connect } from 'react-redux'
-import { selectCategoryThunk } from '../actions'
-// import * as readableAPI from '../utils/readableAPI'
+import { selectCategoryThunk, sortPosts } from '../actions'
+import sortBy from 'sort-by'
 import _ from 'underscore'
 
 class Body extends Component {
@@ -15,11 +15,18 @@ class Body extends Component {
     }
   }
 
+  // componentDidMount() {
+  //   this.props.sortPosts("new")
+  // }
+
   render() {
 
+    console.log("L24 body = ", this.props)
     const { current_category } = this.props
 
-    // console.log("L12 body = ", this.props)
+    if(!(_.isEmpty(current_category))) {
+      current_category.sort(sortBy(this.props.sort_param))
+    }
 
     return(
       <div className="home-page-body">
@@ -48,15 +55,17 @@ class Body extends Component {
 }//class Body
 
 function mapStateToProps(state) {
-  const {category_posts_reducer} = state
+  const { category_posts_reducer, sort_posts_reducer } = state
   return {
     current_category: category_posts_reducer.category_posts,
+    sort_param: sort_posts_reducer.sort_param
   }
 }//mapStateToProps()
 
 function mapDispatchToProps(dispatch) {
   return {
     selectCategoryThunk: (category) => dispatch(selectCategoryThunk(category)),
+    sortPosts: (sort_param) => dispatch(sortPosts(sort_param)),
   }
 }//mapDispatchToProps()
 

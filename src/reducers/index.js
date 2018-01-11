@@ -8,11 +8,41 @@ import {
   DELETE_COMMENT,
   DELETE_POST,
   SUBMIT_POST,
-  // SUBMIT_COMMENT
+  SORT_POSTS,
 } from '../actions'
 
 /**
  */
+
+function sort_posts_reducer(state, action) {
+  // console.log("L18 sort_posts_reducer state", state);
+  // console.log("L18 sort_posts_reducer action", action);
+  switch (action.type) {
+    case SORT_POSTS:
+      switch (action.sort_param) {
+          case "popular":
+            return {//most to least popular
+              select_value: action.sort_param,
+              sort_param: "-voteScore"
+            }
+          case "new":
+            return {//most to least popular
+              select_value: action.sort_param,
+              sort_param: "-timestamp"
+            }
+          default://New from new to old
+            return {
+              select_value: action.sort_param,
+              sort_param: action.sort_param
+            }
+      }//switch
+    default:
+      return {
+        ...state
+      }
+  }
+}//sort_posts_reducer()
+
 
 //CRAPY NAMING CONVENTION ALERT!!!
 //state- is not an app state state is DATA from action!!!
@@ -145,7 +175,7 @@ function selected_post_comments_reducer(state, action) {
 export default combineReducers({
   category_posts_reducer,
   select_post_reducer,
-  // vote_on_comment_reducer,
+  sort_posts_reducer,
   vote_on_post_reducer,
   selected_post_comments_reducer
 })

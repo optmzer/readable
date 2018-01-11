@@ -145,8 +145,8 @@ class Post extends Component {
                     <fieldset>
                       <legend>Comment</legend>
                         <span className="comment-author">
-                          <span>Author: </span>
-                          <input  type="text" name="author" />
+
+                          <input  type="text" name="author" placeholder="Author"/>
                         </span>
                         <span className="input-btn">
                           <input

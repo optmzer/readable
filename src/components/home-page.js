@@ -12,13 +12,10 @@ class HomePage extends Component {
     // this.props.selectCategoryThunk("home")
   }
 
-  printHistory(history){
-    console.log("L26 home-page ", history.location);
-  }
 
   render(){
 
-    console.log("L40 HomePage this.props = ", this.props);
+    // console.log("L40 HomePage this.props = ", this.props);
     // console.log("L41 HomePage React this.state = ", this.state);
 
     return(
@@ -32,7 +29,7 @@ class HomePage extends Component {
           />
           <Route exact path="/create"
             component={
-              ({match, history}) => 
+              ({match, history}) =>
               <Create match={match} history={history}/>
             }
           />
