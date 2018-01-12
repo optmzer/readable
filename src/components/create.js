@@ -4,7 +4,6 @@ import '../style/header.css'
 import * as Fa from 'react-icons/lib/fa'
 import { connect } from 'react-redux'
 import { submitPostThunk } from '../actions'
-// import { Link } from 'react-router-dom'
 
 
 /**
@@ -24,8 +23,7 @@ class Create extends Component {
   activateButton(event) {
     if(event.target.form[1].value !== "Select category"
         && event.target.form[2].value
-        && event.target.form[3].value
-        && event.target.form[4].value){
+        && event.target.form[3].value){
         console.log("L27 disabled: false ", this.state);
         this.setState({disabled: false})
       } else {
@@ -39,16 +37,15 @@ class Create extends Component {
 console.log("L37 create ", event.target);
     if(event.target[1].value !== "Select category"
         && event.target[2].value
-        && event.target[3].value
-        && event.target[4].value){
+        && event.target[3].value){
 
         let post_data ={
           id: Math.random() * 10000000000000000, //- UUID should be fine, but any unique id will work
           timestamp: Date.now(),          //- timestamp in whatever format you like, you can use Date.now() if you like
           category: event.target[1].value,   //- String
-          author: event.target[2].value,     //- String
-          title: event.target[3].value,  //Any of the categories listed in categories.js.
-          body: event.target[4].value,    //- String
+          author: this.props.user_login,     //- String
+          title: event.target[2].value,  //Any of the categories listed in categories.js.
+          body: event.target[3].value,    //- String
       }
 
       this.props.submitPost(post_data)
@@ -61,47 +58,77 @@ console.log("L37 create ", event.target);
   render() {
     return(
       <div className="home-page-body">
-      <div className="user-info-create">
-        <div className="user-avatar-create">
-          <Fa.FaFileImageO size={75} />
+      {!this.props.user_login
+        && !this.props.open_login_modal
+        && this.props.history.goBack()}
+      { this.props.user_login &&
+        <div>
+          <div className="user-info-create">
+            <div className="user-avatar-create">
+              <Fa.FaFileImageO size={75} />
+            </div>
+            <span>Author: {this.props.user_login}</span>
+          </div>
+          <form
+            id="submit-form"
+            onChange={(event) => this.activateButton(event)}
+            onSubmit={(event) => this.handleForm(event)}
+            method="POST"
+          >
+            <fieldset>
+              <legend>Create Post</legend>
+              Post category:
+              <select id="category_selector"
+                      name="post-category"
+                      defaultValue="Select category"
+                      required>
+                <option value="Select category" disabled >Select post category</option>
+                <option value="react">React</option>
+                <option value="redux">Redux</option>
+                <option value="udacity" >Udacity</option>
+              </select>
+              
+              <input id="post-title" name="title" type="text" placeholder="Title"/>
+              <br/>
+                <textarea name="post-body" rows="8" cols="80"></textarea>
+              <br/>
+              <button
+                type="submit"
+                value="Post"
+                disabled={this.state.disabled}
+              >
+                <Fa.FaCheck size={35}/>
+              </button>
+              <button
+                type="reset"
+                value="Reset"
+                onClick={() => this.setState({disabled: true})}
+              >
+                <Fa.FaTrashO size={35}/>
+              </button>
+              <button
+                type="button"
+                name="button-cancel"
+                onClick={() => this.props.history.goBack()}
+              >
+                <Fa.FaClose size={35}/>
+              </button>
+            </fieldset>
+          </form>
         </div>
-      </div>
-        <form
-          id="submit-form"
-          onChange={(event) => this.activateButton(event)}
-          onSubmit={(event) => this.handleForm(event)}
-          method="POST"
-        >
-          <fieldset>
-            <legend>Create Post</legend>
-            Post category:
-            <select id="category_selector"
-                    name="post-category"
-                    defaultValue="Select category"
-                    required>
-              <option value="Select category" disabled >Select post category</option>
-              <option value="react">React</option>
-              <option value="redux">Redux</option>
-              <option value="udacity" >Udacity</option>
-            </select>
-            <input name="author" type="text" placeholder="Author"/>
-            <input id="post-title" name="title" type="text" placeholder="Title"/>
-            <br/>
-              <textarea name="post-body" rows="8" cols="80"></textarea>
-            <br/>
-            <input type="submit" value="Post" disabled={this.state.disabled}/>
-            <input type="reset" value="Reset" onClick={() => this.setState({disabled: true})}/>
-            <button
-              type="button"
-              name="button-cancel"
-              onClick={() => this.props.history.goBack()}
-            >Cancel</button>
-          </fieldset>
-        </form>
+      }
       </div>
     )//return()
   }//render()
 }//class Create
+
+function mapStateToProps(state) {
+  const { user_login_reducer } = state
+  return {
+    user_login: user_login_reducer.user_login,
+    open_login_modal: user_login_reducer.open_login_modal
+  }
+}
 
 function mapDispatchToProps(dispatch) {
   return {
@@ -109,4 +136,4 @@ function mapDispatchToProps(dispatch) {
   }
 }//mapDispatchToProps()
 
-export default connect(null, mapDispatchToProps)(Create)
+export default connect(mapStateToProps, mapDispatchToProps)(Create)

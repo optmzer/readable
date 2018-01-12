@@ -164,13 +164,18 @@ class Post extends Component {
                               Author: {this.props.user_login}
                             </span>
                             <span className="input-btn">
-                              <input
+                              <button
                                 type="submit"
                                 value="Submit"
-                                disabled={this.state.disabled}/>
+                                disabled={this.state.disabled}
+                              >
+                                <Fa.FaCheck size={25}/>
+                              </button>
                             </span>
                             <span className="input-btn">
-                              <input type="reset" value="Reset Form"/>
+                              <button type="reset" value="Reset Form">
+                                <Fa.FaTrashO size={25} />
+                              </button>
                             </span>
                           </div>
                         }

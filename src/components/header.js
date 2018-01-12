@@ -2,12 +2,14 @@ import React, { Component } from 'react'
 import { NavLink } from 'react-router-dom'
 import { connect } from 'react-redux'
 import Modal from 'react-modal'
+import * as _ from 'underscore'
 import * as Fa from 'react-icons/lib/fa'
 import '../style/header.css'
 import {
   selectCategoryThunk,
   sortPosts,
   setUserLogin,
+  openLoginModal,
   closeLoginModal
 } from '../actions'
 
@@ -83,6 +85,14 @@ class Header extends Component {
     Modal.setAppElement(".App-header")
   }
 
+  openIdentifyModal(event){
+    if(this.props.user_login === "" || _.isEmpty(this.props.user_login)){
+      this.props.openLoginModal()
+      //removes focus from the input othervise it stays focused
+      //and the Modal stays opened.
+      event.target.blur()
+    }
+  }//openIdentifyModal()
 
   handleModalInput(event) {
     event.preventDefault()
@@ -151,7 +161,7 @@ class Header extends Component {
               <li>
                 <NavLink
                   exact to="/create"
-                  onClick={ () => this.getCategory("create")}
+                  onClick={ (event) => this.openIdentifyModal(event)}
                 >
                   <Fa.FaEdit size={30} />
                 </NavLink>
@@ -212,7 +222,8 @@ function mapDispatchToProps(dispatch) {
     selectCategoryThunk: (category) => {dispatch(selectCategoryThunk(category))},
     sortPosts: (sort_param) => {dispatch(sortPosts(sort_param))},
     setUserLogin: (login) => dispatch(setUserLogin(login)),
-    closeLoginModal: () => dispatch(closeLoginModal())
+    closeLoginModal: () => dispatch(closeLoginModal()),
+    openLoginModal: () => dispatch(openLoginModal())
   }
 }
 
