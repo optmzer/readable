@@ -47,3 +47,19 @@
 .comment-section li:nth-child(odd) {
   background: #676767;
 }
+
+.modal-login-form {
+}
+
+.modal-fieldset {
+  min-height: 7em;
+  border: 2px ridge;
+  color: #111;
+  background: #fff;
+}
+.modal-user-login-input {
+}
+.modal-btn {
+  border: none;
+  margin-left: .5em;
+}

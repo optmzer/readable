@@ -10,7 +10,8 @@ option {
 
 .App-header {
   min-height: 80px;
-  background-color: #797979;
+  /* background-color: #797979; */
+  background: #536972;
   border-bottom: #e8491d 3px solid;
   position: fixed;
   top: 0;
@@ -146,11 +147,35 @@ option {
 }
 .edit-btn {
   /* float: left; */
-
 }
 
+/* ======= FOOTER ======= */
+
 footer {
-  background: #e8491d;
-  min-height: 40px;
-  /* bottom: 0; */
+  /* background: #e8491d; */
+  background: #536972;
+  /* min-height: 38px; */
+}
+
+.footer-social{
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+}
+
+.footer-social ul{
+  padding-top: .6em;
+  grid-column: 8/13;
+  grid-row: 1/2;
+}
+
+.footer-social li {
+  display: inline;
+  padding-left: .6em;
+}
+
+.web-dev-logo {
+  /* background: yellow; */
+  grid-column: 5/9;
+  grid-row: 2/3;
 }

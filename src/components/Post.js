@@ -9,9 +9,12 @@ import {
   getSelectPostCommentsThunk,
   voteOnPostThunk,
   deletePostThunk,
-  submitCommentThunk
+  submitCommentThunk,
+  openLoginModal
 } from '../actions'
 import * as _ from 'underscore'
+// import Modal from 'react-modal'
+
 
 /**
  * Post can be done as a stand alone React app because I will only see
@@ -22,7 +25,8 @@ import * as _ from 'underscore'
 class Post extends Component {
 
   state={
-    disabled: true
+    disabled: true, //category selector on post form
+    // identifyModalOpened: false, //modal window
   }
 
   updatePost() {
@@ -31,20 +35,21 @@ class Post extends Component {
   }
 
   activateButton(event){
-      if(event.target.form[1].value && event.target.form[4].value){
+      if(event.target.form[3].value){
         this.setState({ disabled: false })
     }
   }//activateButton()
 
   handleComment(event) {
-
+    console.log("L69 comment-form ", event.target);
     event.preventDefault()
-      if(event.target[1].value && event.target[4].value){
+      if(event.target[3].value){
+        //assemble comment object to send to server
         let comment_object = {
           id: "com" + Math.random() * 10000000000000000, //Any unique ID. As with posts, UUID is probably the best here.
           timestamp: Date.now(),  //timestamp. Get this however you want.
-          body: event.target[4].value, //String
-          author: event.target[1].value, //String
+          body: event.target[3].value, //String
+          author: this.props.user_login, //String
           parentId: this.props.match.params.post_id, //Should match a post id in the database.
         }
 
@@ -65,9 +70,19 @@ class Post extends Component {
     this.updatePost()
   }
 
-
+  openIdentifyModal(event){
+    if(this.props.user_login === "" || _.isEmpty(this.props.user_login)){
+      this.props.openLoginModal()
+      //removes focus from the input othervise it stays focused
+      //and the Modal stays opened.
+      event.target.blur()
+    }
+  }//openIdentifyModal()
 
   render(){
+
+    console.log("L128 post this.state ", this.state);
+    console.log("L129 post this.props ", this.props);
 
   const { post, comments } = this.props
   let timestamp
@@ -79,8 +94,6 @@ class Post extends Component {
   if(post) {
     timestamp = new Date(post.timestamp).toLocaleTimeString("en-NZ", options)
   }
-
-  console.log("L80 post ", this.props);
 
   return(
         <div className="home-page-body">
@@ -141,24 +154,29 @@ class Post extends Component {
                     method="POST"
                     onChange={(event) => this.activateButton(event)}
                     onSubmit={(event) => this.handleComment(event)}
+                    onFocus={(event) => this.openIdentifyModal(event)}
                   >
                     <fieldset>
                       <legend>Comment</legend>
-                        <span className="comment-author">
-
-                          <input  type="text" name="author" placeholder="Author"/>
-                        </span>
-                        <span className="input-btn">
-                          <input
-                            type="submit"
-                            value="Submit"
-                            disabled={this.state.disabled}/>
-                        </span>
-                        <span className="input-btn">
-                          <input type="reset" value="Reset Form"/>
-                        </span>
+                        { this.props.user_login &&
+                          <div className="comment-controls-hidden">
+                            <span className="comment-author">
+                              Author: {this.props.user_login}
+                            </span>
+                            <span className="input-btn">
+                              <input
+                                type="submit"
+                                value="Submit"
+                                disabled={this.state.disabled}/>
+                            </span>
+                            <span className="input-btn">
+                              <input type="reset" value="Reset Form"/>
+                            </span>
+                          </div>
+                        }
                       <div className="comment-body">
                         <textarea
+                          id="comment-textarea"
                           name="post-input"
                           rows="4"
                           cols="80"></textarea>
@@ -184,16 +202,18 @@ class Post extends Component {
             </section>
           </div>
         </div>
-
     )//return()
   }//render()
 }//class Post
 
 function mapStateToProps(state) {
-  const { select_post_reducer, selected_post_comments_reducer } = state
+  const { select_post_reducer, selected_post_comments_reducer} = state
+  const { user_login_reducer } = state
+
   return {
     post: select_post_reducer.post,
-    comments: selected_post_comments_reducer.comments
+    comments: selected_post_comments_reducer.comments,
+    user_login: user_login_reducer.user_login
   }
 }//mapStateToProps()
 
@@ -204,6 +224,7 @@ function mapDispatchToProps(dispatch) {
     voteOnPost: (post_id, vote) => dispatch(voteOnPostThunk(post_id, vote)),
     deletePost: (post_id) => dispatch(deletePostThunk(post_id)),
     submitComment: (comment) => dispatch(submitCommentThunk(comment)),
+    openLoginModal: () => dispatch(openLoginModal())
   }
 }
 

@@ -4,8 +4,17 @@ import { connect } from 'react-redux'
 import { selectCategoryThunk, sortPosts } from '../actions'
 import sortBy from 'sort-by'
 import _ from 'underscore'
+// import Modal from 'react-modal'
+
+/**
+*Make modal for post edit button. to see how it works.
+*/
 
 class Body extends Component {
+
+state = {
+  identifyModalOpened: false,
+}
 
   componentWillMount() {
     if(this.props.match.url !== "/"){
@@ -14,10 +23,6 @@ class Body extends Component {
       this.props.selectCategoryThunk("home")
     }
   }
-
-  // componentDidMount() {
-  //   this.props.sortPosts("new")
-  // }
 
   render() {
 

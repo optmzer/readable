@@ -4,6 +4,10 @@ body, h1, h2, h3, p, a, ul, li, nav, div, section {
   padding: 0;
 }
 
+button {
+  border: none;
+}
+
 body {
   font-family: Arial, Helvetica, sans-serif;
   background: #333;

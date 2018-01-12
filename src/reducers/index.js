@@ -9,10 +9,39 @@ import {
   DELETE_POST,
   SUBMIT_POST,
   SORT_POSTS,
+  OPEN_LOGIN_MODAL,
+  CLOSE_LOGIN_MODAL,
+  SET_USER_LOGIN
 } from '../actions'
 
 /**
  */
+
+function user_login_reducer(state, action) {
+  console.log("L20 user_login_reducer state", state);
+  console.log("L20 user_login_reducer action", action);
+
+  switch (action.type) {
+    case OPEN_LOGIN_MODAL:
+      return {
+        ...state,
+        open_login_modal: true,
+      }
+    case CLOSE_LOGIN_MODAL:
+      return {
+        ...state,
+        open_login_modal: false,
+      }
+    case SET_USER_LOGIN:
+      return {
+        user_login: action.user_login,
+        open_login_modal: false,
+      }
+    default:
+      return {...state}
+  }
+}
+
 
 function sort_posts_reducer(state, action) {
   // console.log("L18 sort_posts_reducer state", state);
@@ -177,5 +206,6 @@ export default combineReducers({
   select_post_reducer,
   sort_posts_reducer,
   vote_on_post_reducer,
-  selected_post_comments_reducer
+  selected_post_comments_reducer,
+  user_login_reducer,
 })

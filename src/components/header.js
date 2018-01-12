@@ -1,9 +1,44 @@
 import React, { Component } from 'react'
 import { NavLink } from 'react-router-dom'
 import { connect } from 'react-redux'
-import {selectCategoryThunk, sortPosts} from '../actions'
+import Modal from 'react-modal'
 import * as Fa from 'react-icons/lib/fa'
 import '../style/header.css'
+import {
+  selectCategoryThunk,
+  sortPosts,
+  setUserLogin,
+  closeLoginModal
+} from '../actions'
+
+let customStyle = {
+  overlay : {
+    position          : 'fixed',
+    top               : 0,
+    left              : 0,
+    right             : 0,
+    bottom            : 0,
+    backgroundColor   : 'rgba(255, 255, 255, 0.75)'
+  },
+  content : {
+    position                   : 'absolute',
+    top                        : '35%',
+    left                       : '20%',
+    right                      : '20%',
+    bottom                     : '35%',
+    border                     : '1px solid #bbb',
+    background                 : '#ddd',
+    overflow                   : 'auto',
+    WebkitOverflowScrolling    : 'touch',
+    borderRadius               : '4px',
+    outline                    : 'none',
+    padding                    : '20px'
+
+  }
+}
+
+
+
 
 /**
 *Header for the App. Has nav controls and sort selector.
@@ -42,6 +77,19 @@ class Header extends Component {
       this.getSortSelection("new")
     }
   }
+
+  // ========== MODAL =========
+  componentDidMount() {
+    Modal.setAppElement(".App-header")
+  }
+
+
+  handleModalInput(event) {
+    event.preventDefault()
+    this.props.setUserLogin(event.target[1].value)
+    // this.closeIdentifyModal()
+  }
+
 
   render() {
     // console.log("L47 header ", this.props);
@@ -111,22 +159,60 @@ class Header extends Component {
             </ul>
           </nav>
         </div>
+        <Modal
+          className="modal"
+          overlayClassName="overlay"
+          isOpen={this.props.open_login_modal}
+          onRequestClose={() => this.props.closeLoginModal()}
+          style={customStyle}
+        >
+          <form
+            className="modal-login-form"
+            onSubmit={(event) => this.handleModalInput(event)}
+          >
+            <fieldset className="modal-fieldset">
+            <legend>Please Identify</legend>
+            <input
+              id="modal-user-login-input"
+              type="text"
+              placeholder="Any ID Will Do"
+            />
+            <button
+              className="modal-btn"
+              type="submit"
+              value="OK"
+            >
+              <Fa.FaCheck size={25}/>
+            </button>
+            <button
+              className="modal-btn"
+              onClick={() => this.props.closeLoginModal()}
+            >
+              <Fa.FaClose size={25}/>
+            </button>
+            </fieldset>
+          </form>
+        </Modal>
       </header>
     )//return()
   }//render()
 }
 
 function mapStateToProps(state) {
-  const {sort_posts_reducer} = state
+  const {sort_posts_reducer,user_login_reducer} = state
   return {
-    select_value: sort_posts_reducer.select_value
+    select_value: sort_posts_reducer.select_value,
+    user_login: user_login_reducer.user_login,
+    open_login_modal: user_login_reducer.open_login_modal
   }
 }
 
 function mapDispatchToProps(dispatch) {
   return {
     selectCategoryThunk: (category) => {dispatch(selectCategoryThunk(category))},
-    sortPosts: (sort_param) => {dispatch(sortPosts(sort_param))}
+    sortPosts: (sort_param) => {dispatch(sortPosts(sort_param))},
+    setUserLogin: (login) => dispatch(setUserLogin(login)),
+    closeLoginModal: () => dispatch(closeLoginModal())
   }
 }
 

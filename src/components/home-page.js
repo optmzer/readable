@@ -12,7 +12,6 @@ class HomePage extends Component {
     // this.props.selectCategoryThunk("home")
   }
 
-
   render(){
 
     // console.log("L40 HomePage this.props = ", this.props);
@@ -20,6 +19,7 @@ class HomePage extends Component {
 
     return(
       <div>
+
         < Route
         component={({location}) => <Header location={location}/>}
         />
@@ -41,8 +41,8 @@ class HomePage extends Component {
             }
           />
         </Switch>
-
         <Footer />
+
       </div>
     )//return()
   }//render()

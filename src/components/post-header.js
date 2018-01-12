@@ -9,12 +9,16 @@ import {
        } from '../actions'
 import { connect } from 'react-redux'
 
+/**
+* This is post-header that is shown in categories list.
+*
+*/
+
 class PostHeader extends Component {
 
   render(){
 
     const {post_data} = this.props
-    // console.log("L10 post-header ", this.props);
 
     let timestamp = "00:00:00",
     author = "Post Author",
@@ -24,7 +28,7 @@ class PostHeader extends Component {
     title = "Post Title",
     voteScore = 0
 
-// hasOwnProperty("post_data")
+    //assemble options object for toLocaleTimeString() method
     var options = { weekday: 'short',
                     year: 'numeric',
                     month: 'short',
@@ -41,7 +45,6 @@ class PostHeader extends Component {
       voteScore = post_data.voteScore
     }
 
-// onClick={this.props.voteOnPost(post_id, "upVote")}
     return(
       <div className="user-info">
           <div className="voting-block">

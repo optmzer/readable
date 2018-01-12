@@ -10,18 +10,43 @@ export const DELETE_POST = "DELETE_POST"
 export const SUBMIT_POST = "SUBMIT_POST"
 export const SUBMIT_COMMENT = "SUBMIT_COMMENT"
 export const SORT_POSTS = "SORT_POSTS"
+export const OPEN_LOGIN_MODAL = "OPEN_LOGIN_MODAL"
+export const CLOSE_LOGIN_MODAL = "CLOSE_LOGIN_MODAL"
+export const SET_USER_LOGIN = "SET_USER_LOGIN"
 
-// ====== FILTERING ======
+// ====== "Identify" Author/user ======
+export function openLoginModal() {
+  return {
+    type: OPEN_LOGIN_MODAL,
+    open_login_modal: true
+  }
+}
 
+export function closeLoginModal() {
+  return {
+    type: CLOSE_LOGIN_MODAL,
+    open_login_modal: false
+  }
+}
+
+export function setUserLogin(login) {
+  return {
+    type: SET_USER_LOGIN,
+    user_login: login
+  }
+}
+
+// ====== SORTING ======
+//Sorts post by timestamp, Author, Title, voteScore
 export function sortPosts(sort_param){
-  // console.log("L17 sortPosts action ", sort_param);
   return {
     type: SORT_POSTS,
     sort_param
   }
 }
-// ====== POST ======
 
+// ====== POST ======
+//Adds votes to the post
 function vote_on_post(post) {
   return {
     type: VOTE_POST,
@@ -29,7 +54,6 @@ function vote_on_post(post) {
   }
 }
 
-// ============= THUNK_VOTE ============
 export function voteOnPostThunk (post_id, vote) {
   return function(dispatch) {
     return readableAPI.voteOnPost(post_id, vote)
@@ -41,7 +65,7 @@ export function voteOnPostThunk (post_id, vote) {
 
 
 
-//Combines 3 different actions into one with new property.
+//Gets posts in selected category
 function select_category(posts) {
   return {
     type: SELECT_CATEGORY,
@@ -50,7 +74,7 @@ function select_category(posts) {
 }
 
 export function selectCategoryThunk (category) {
-  if(category === "home"){
+  if(category === "home"){//get all posts
     return function(dispatch){
       return readableAPI.getAllPosts()
       .then((posts) => {
@@ -66,6 +90,7 @@ export function selectCategoryThunk (category) {
   }
 }
 
+//Gets selected post to render
 function select_post(post) {
   return {
     type: SELECT_POST,
@@ -80,7 +105,9 @@ export function selectPostThunk(post_id){
   }
 }
 
-
+//"Deletes" post. Sets flag
+// Sets the deleted flag for a post to 'true'.
+// Sets the parentDeleted flag for all child comments to 'true'.
 function delete_post(post){
   return {
     type: DELETE_POST,
@@ -95,6 +122,7 @@ export function deletePostThunk(post_id){
   }
 }
 
+//Submits post to the server
 function submit_post(post) {
   return {
     type: SUBMIT_POST,
@@ -108,6 +136,7 @@ export function submitPostThunk(post) {
     .then(response => dispatch(submit_post(response)))
   }
 }
+
 
 // ======== COMMENTS SECTION ============
 
