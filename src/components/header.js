@@ -13,6 +13,7 @@ import {
   closeLoginModal
 } from '../actions'
 
+//style for user login Modal
 let customStyle = {
   overlay : {
     position          : 'fixed',
@@ -37,10 +38,7 @@ let customStyle = {
     padding                    : '20px'
 
   }
-}
-
-
-
+}//customStyle
 
 /**
 *Header for the App. Has nav controls and sort selector.
@@ -161,7 +159,6 @@ class Header extends Component {
               <li>
                 <NavLink
                   exact to="/create"
-                  onClick={ (event) => this.openIdentifyModal(event)}
                 >
                   <Fa.FaEdit size={30} />
                 </NavLink>

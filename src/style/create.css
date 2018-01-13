@@ -8,3 +8,8 @@
 .user-avatar-create {
   grid-column: 1/2 ;
 }
+
+.login-info {
+  font-size: 1.5em;
+  padding-top: .5em;
+}

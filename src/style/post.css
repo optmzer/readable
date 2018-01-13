@@ -36,8 +36,16 @@
 
 .input-btn {
   style: none;
-  /* border: none; */
   padding-left: 2em;
+}
+
+.input-btn button {
+  background-color: #333;
+  color: #fff;
+}
+
+.input-btn button:disabled {
+  color: #6D6D6D;
 }
 
 .comment-section li:nth-child(even) {

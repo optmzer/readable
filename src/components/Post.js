@@ -1,4 +1,5 @@
 import React, {Component} from 'react'
+import { Link } from 'react-router-dom'
 import * as Fa from 'react-icons/lib/fa'
 import Comment from './comment'
 import '../style/post.css'
@@ -129,10 +130,13 @@ class Post extends Component {
                 </div>
               </div>
               <div className="edit-tools">
-                <a ><Fa.FaEdit className="edit-btn" size={25} /></a>
+                <Link to="/create">
+                  <Fa.FaEdit className="edit-btn" size={25} />
+                </Link>
                 <a
                   onClick={() => this.props.deletePost(post.id)}
-                  ><Fa.FaTrashO className="delete-btn" size={25} /></a>
+                  ><Fa.FaTrashO className="delete-btn" size={25} />
+                </a>
               </div>
             </div>
           }
@@ -152,6 +156,7 @@ class Post extends Component {
                   <form
                     className="comment-form"
                     method="POST"
+                    onReset={() => this.setState({disabled: true})}
                     onChange={(event) => this.activateButton(event)}
                     onSubmit={(event) => this.handleComment(event)}
                     onFocus={(event) => this.openIdentifyModal(event)}

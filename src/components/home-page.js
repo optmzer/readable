@@ -30,7 +30,7 @@ class HomePage extends Component {
           <Route exact path="/create"
             component={
               ({match, history}) =>
-              <Create match={match} history={history}/>
+              <Create match={match} history={history} />
             }
           />
           <Route exact path="/:post_category"

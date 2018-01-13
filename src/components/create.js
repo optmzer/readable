@@ -3,7 +3,7 @@ import '../style/create.css'
 import '../style/header.css'
 import * as Fa from 'react-icons/lib/fa'
 import { connect } from 'react-redux'
-import { submitPostThunk } from '../actions'
+import { submitPostThunk, openLoginModal } from '../actions'
 
 
 /**
@@ -18,8 +18,6 @@ class Create extends Component {
     disabled: true,
   }
 
-//TODO: Create a unique ID so posts do not rewrite itself over the other one.
-//activateButton does not really work. Find out why.
   activateButton(event) {
     if(event.target.form[1].value !== "Select category"
         && event.target.form[2].value
@@ -34,7 +32,7 @@ class Create extends Component {
   handleForm(event){
 
     event.preventDefault()
-console.log("L37 create ", event.target);
+    console.log("L37 create ", event.target);
     if(event.target[1].value !== "Select category"
         && event.target[2].value
         && event.target[3].value){
@@ -52,15 +50,43 @@ console.log("L37 create ", event.target);
       //Open Post details page after complete
       this.props.history.replace("/" + post_data.category + "/" + post_data.id)
     }
-
   }//handleForm()
+
+  componentWillMount() {
+    if(!this.props.user_login && !this.props.open_login_modal){
+      this.props.openLoginModal()
+    }
+  }
+
+  // componentDidMount() {
+  //   if(!this.props.user_login && !this.props.open_login_modal){
+  //     this.props.history.goBack()
+  //   }else {
+  //     this.props.history.push("/create")
+  //   }
+  // }
+  // {!this.props.user_login && this.props.openLoginModal()}
 
   render() {
     return(
       <div className="home-page-body">
-      {!this.props.user_login
-        && !this.props.open_login_modal
-        && this.props.history.goBack()}
+
+      { !this.props.user_login &&
+        <div className="login-info">
+          <ul>
+            <li>
+              <a onClick={() => this.props.openLoginModal()}
+              >Please login to create a post <Fa.FaSignIn size={35}/></a>
+            </li>
+            <li>
+              <a onClick={() => this.props.history.goBack()}>
+                <Fa.FaArrowLeft size={30}/> Return
+              </a>
+            </li>
+          </ul>
+        </div>
+      }
+
       { this.props.user_login &&
         <div>
           <div className="user-info-create">
@@ -87,7 +113,7 @@ console.log("L37 create ", event.target);
                 <option value="redux">Redux</option>
                 <option value="udacity" >Udacity</option>
               </select>
-              
+
               <input id="post-title" name="title" type="text" placeholder="Title"/>
               <br/>
                 <textarea name="post-body" rows="8" cols="80"></textarea>
@@ -132,7 +158,8 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    submitPost: (post) => dispatch(submitPostThunk(post))
+    submitPost: (post) => dispatch(submitPostThunk(post)),
+    openLoginModal: () => dispatch(openLoginModal())
   }
 }//mapDispatchToProps()
 
