@@ -2,9 +2,8 @@ import React, {Component} from 'react'
 import * as Fa from 'react-icons/lib/fa'
 import { Link } from 'react-router-dom'
 import {
-        selectPostThunk,
+        getPostToEditThunk,
         voteOnPostThunk,
-        getSelectPostCommentsThunk,
         deletePostThunk
        } from '../actions'
 import { connect } from 'react-redux'
@@ -71,10 +70,6 @@ class PostHeader extends Component {
               <div>
                 <Link
                   to={`/${category}/${post_id}`}
-                  onClick={() => {
-                    this.props.selectPostThunk(post_id)
-                    this.props.getSelectPostCommentsThunk(post_id)
-                  }}
                 ><h3>{title}</h3>
                 </Link>
               </div>
@@ -88,7 +83,11 @@ class PostHeader extends Component {
             </div>
 
           <div className="edit-tools">
-            <a className="edit-btn"><Fa.FaEdit className="edit-btn" size={30} /></a>
+            <Link
+              className="edit-btn"
+              to="/create"
+              onClick={() => this.props.getPostToEdit(post_id)}
+            ><Fa.FaEdit className="edit-btn" size={30} /></Link>
             <a
               className="delete-btn"
               onClick={() => this.props.deletePost(post_id)}
@@ -102,9 +101,8 @@ class PostHeader extends Component {
 
 function mapDispatchToProps(dispatch) {
   return {
-    selectPostThunk: (post_id) => {dispatch(selectPostThunk(post_id))},
+    getPostToEdit: (post_id) => {dispatch(getPostToEditThunk(post_id))},
     voteOnPost: (post_id, vote) => {dispatch(voteOnPostThunk(post_id, vote))},
-    getSelectPostCommentsThunk: (post_id) => dispatch(getSelectPostCommentsThunk(post_id)),
     deletePost: (post_id) => dispatch(deletePostThunk(post_id))
   }
 }

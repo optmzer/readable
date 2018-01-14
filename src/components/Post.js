@@ -1,6 +1,8 @@
 import React, {Component} from 'react'
 import { Link } from 'react-router-dom'
 import * as Fa from 'react-icons/lib/fa'
+import * as _ from 'underscore'
+import Modal from 'react-modal'
 import Comment from './comment'
 import '../style/post.css'
 import '../style/header.css'
@@ -10,24 +12,43 @@ import {
   getSelectPostCommentsThunk,
   voteOnPostThunk,
   deletePostThunk,
+  getPostToEditThunk,
   submitCommentThunk,
   openLoginModal
 } from '../actions'
-import * as _ from 'underscore'
-// import Modal from 'react-modal'
 
+//style for user login Modal
+let customStyle = {
+  overlay : {
+    position          : 'fixed',
+    top               : 0,
+    left              : 0,
+    right             : 0,
+    bottom            : 0,
+    backgroundColor   : 'rgba(255, 255, 255, 0.75)'
+  },
+  content : {
+    position                   : 'absolute',
+    top                        : '35%',
+    left                       : '20%',
+    right                      : '20%',
+    bottom                     : '35%',
+    border                     : '1px solid #bbb',
+    background                 : '#ddd',
+    overflow                   : 'auto',
+    WebkitOverflowScrolling    : 'touch',
+    borderRadius               : '4px',
+    outline                    : 'none',
+    padding                    : '20px'
 
-/**
- * Post can be done as a stand alone React app because I will only see
- comments when I see the post. And when I vote the server reterns new comment
- anyway.
- */
+  }
+}//customStyle
+
 
 class Post extends Component {
 
   state={
     disabled: true, //category selector on post form
-    // identifyModalOpened: false, //modal window
   }
 
   updatePost() {
@@ -130,7 +151,10 @@ class Post extends Component {
                 </div>
               </div>
               <div className="edit-tools">
-                <Link to="/create">
+                <Link
+                  to="/create"
+                  onClick={() => this.props.getPostToEdit(post.id)}
+                >
                   <Fa.FaEdit className="edit-btn" size={25} />
                 </Link>
                 <a
@@ -211,6 +235,40 @@ class Post extends Component {
             }
             </section>
           </div>
+          <Modal
+            className="modal"
+            overlayClassName="overlay"
+            isOpen={this.props.open_login_modal}
+            onRequestClose={() => this.props.closeLoginModal()}
+            style={customStyle}
+          >
+            <form
+              className="modal-login-form"
+              onSubmit={(event) => this.handleModalInput(event)}
+            >
+              <fieldset className="modal-fieldset">
+              <legend>Please Identify</legend>
+              <input
+                id="modal-user-login-input"
+                type="text"
+                placeholder="Any ID Will Do"
+              />
+              <button
+                className="modal-btn"
+                type="submit"
+                value="OK"
+              >
+                <Fa.FaCheck size={25}/>
+              </button>
+              <button
+                className="modal-btn"
+                onClick={() => this.props.closeLoginModal()}
+              >
+                <Fa.FaClose size={25}/>
+              </button>
+              </fieldset>
+            </form>
+          </Modal>
         </div>
     )//return()
   }//render()
@@ -234,7 +292,8 @@ function mapDispatchToProps(dispatch) {
     voteOnPost: (post_id, vote) => dispatch(voteOnPostThunk(post_id, vote)),
     deletePost: (post_id) => dispatch(deletePostThunk(post_id)),
     submitComment: (comment) => dispatch(submitCommentThunk(comment)),
-    openLoginModal: () => dispatch(openLoginModal())
+    openLoginModal: () => dispatch(openLoginModal()),
+    getPostToEdit: (post_id) => dispatch(getPostToEditThunk(post_id))
   }
 }
 

@@ -125,12 +125,12 @@ export const voteOnPost = (post_id, vote) => (
      title - String
      body - String
 */
-export const editPost = (post_id, title, body) => (
-  fetch(`${URL}/posts/${post_id}`, {
+export const editPost = (post) => (
+  fetch(`${URL}/posts/${post.id}`, {
     headers: headers,
     body: JSON.stringify({
-      title : `${title}`,
-      body : `${body}`,
+      title : `${post.title}`,
+      body : `${post.body}`,
     }),
     method: "PUT"
   } )
@@ -233,10 +233,10 @@ PUT /comments/:id
     timestamp: timestamp. Get this however you want.
     body: String
 */
-export const editComment = (comment_id, comment_data) => (
-  fetch(`${URL}/comments/${comment_id}`, {
+export const editComment = (comment) => (
+  fetch(`${URL}/comments/${comment.id}`, {
     headers: headers,
-    body: JSON.stringify(comment_data),
+    body: JSON.stringify(comment.body),
     method: "PUT"
   } )
   .then( (res) => res.json())

@@ -3,12 +3,18 @@ import {
   SELECT_CATEGORY,
   SELECT_POST,
   VOTE_POST,
-  VOTE_COMMENT,
-  GET_SELECTED_POST_COMMENTS,
-  DELETE_COMMENT,
-  DELETE_POST,
   SUBMIT_POST,
   SORT_POSTS,
+  GET_SELECTED_POST_COMMENTS,
+  GET_POST_TO_EDIT,
+  SUBMIT_EDITED_POST,
+  CANCEL_EDIT_POST,
+  DELETE_POST,
+  VOTE_COMMENT,
+  GET_COMMENT_TO_EDIT,
+  SUBMIT_EDITED_COMMENT,
+  CANCEL_EDIT_COMMENT,
+  DELETE_COMMENT,
   OPEN_LOGIN_MODAL,
   CLOSE_LOGIN_MODAL,
   SET_USER_LOGIN
@@ -18,9 +24,6 @@ import {
  */
 
 function user_login_reducer(state, action) {
-  console.log("L20 user_login_reducer state", state);
-  console.log("L20 user_login_reducer action", action);
-
   switch (action.type) {
     case OPEN_LOGIN_MODAL:
       return {
@@ -42,10 +45,7 @@ function user_login_reducer(state, action) {
   }
 }
 
-
 function sort_posts_reducer(state, action) {
-  // console.log("L18 sort_posts_reducer state", state);
-  // console.log("L18 sort_posts_reducer action", action);
   switch (action.type) {
     case SORT_POSTS:
       switch (action.sort_param) {
@@ -129,23 +129,36 @@ function select_post_reducer(state, action) {
   switch (action.type) {
     case SELECT_POST:
       return {
+        ...state,
         post: action.post
       }
     case SUBMIT_POST:
       return {
+        ...state,
         post: action.post
+      }
+    case SUBMIT_EDITED_POST: //after edit open post page with edited post
+      return {
+        ...state,
+        post: action.edited_post
       }
     case VOTE_POST:
       if(state.post && action.post.id === state.post.id){
         return {
+          ...state,
           post: action.post
         }
       }
       return {...state}
-
+    // case GET_POST_TO_EDIT:
+    //   return {
+    //     ...state,
+    //     post_to_edit: action.post_to_edit
+    //   }
     case DELETE_POST:
       if(state.post && action.post.id === state.post.id){
         return {
+          ...state,
           post: {}
         }
       }
@@ -155,6 +168,26 @@ function select_post_reducer(state, action) {
   }
 }
 
+function get_post_to_edit_reducer(state, action) {
+  // console.log("L153 get_post_to_edit_reducer state= ", state);
+  // console.log("L154 get_post_to_edit_reducer action= ", action);
+
+  switch (action.type) {
+    case GET_POST_TO_EDIT:
+      return {
+        post_to_edit: action.post_to_edit,
+        editing: true
+      }
+    case SUBMIT_EDITED_POST://fall through
+    case CANCEL_EDIT_POST:
+      return {
+        post_to_edit: {},
+        editing: false
+      }
+    default:
+      return {...state}
+  }
+}
 
 function selected_post_comments_reducer(state, action) {
   switch (action.type) {
@@ -175,17 +208,6 @@ function selected_post_comments_reducer(state, action) {
           }
         }//if
       return {...state}
-
-    // case SUBMIT_COMMENT://?????? does not mutate state.Why???
-    //it did not allow me to change state directly
-    //copy them mutate.
-      // let new_comments = state.comments.map(comment => comment)
-      // new_comments.push(action.comment)
-      // console.log("L124 reducer state ", state);
-      // console.log("L125 reducer new_comments ", new_comments);
-      // return {
-      //   comments: new_comments
-      // }
     case DELETE_COMMENT:
       if(state.comments.length !== 0){
         return {
@@ -193,6 +215,25 @@ function selected_post_comments_reducer(state, action) {
         }
       }
       return {...state}
+    default:
+      return {...state}
+  }
+}
+
+function get_comment_to_edit_reducer(state, action) {
+  // console.log("L221 get_comment_to_edit_reducer state= ", state);
+  // console.log("L222 get_comment_to_edit_reducer action= ", action);
+
+  switch (action.type) {
+    case GET_COMMENT_TO_EDIT:
+      return{
+        comment_to_edit: action.comment_to_edit
+      }
+    case SUBMIT_EDITED_COMMENT://Fall through
+    case CANCEL_EDIT_COMMENT:
+      return{
+        comment_to_edit: {}
+      }
     default:
       return {...state}
   }
@@ -207,5 +248,7 @@ export default combineReducers({
   sort_posts_reducer,
   vote_on_post_reducer,
   selected_post_comments_reducer,
+  get_post_to_edit_reducer,
   user_login_reducer,
+  get_comment_to_edit_reducer
 })
