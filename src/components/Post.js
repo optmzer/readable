@@ -14,7 +14,9 @@ import {
   deletePostThunk,
   getPostToEditThunk,
   submitCommentThunk,
-  openLoginModal
+  openLoginModal,
+  submitEditedCommentThunk,
+  cancel_edit_comment
 } from '../actions'
 
 //style for user login Modal
@@ -25,7 +27,7 @@ let customStyle = {
     left              : 0,
     right             : 0,
     bottom            : 0,
-    backgroundColor   : 'rgba(255, 255, 255, 0.75)'
+    backgroundColor   : 'rgba(255, 255, 255, 0.1)'
   },
   content : {
     position                   : 'absolute',
@@ -49,6 +51,8 @@ class Post extends Component {
 
   state={
     disabled: true, //category selector on post form
+    edit_comment_modal_open: false, //Edit comment modal
+    comment_to_edit: {}
   }
 
   updatePost() {
@@ -56,12 +60,14 @@ class Post extends Component {
     this.props.getSelectPostCommentsThunk(this.props.match.params.post_id)
   }
 
+  //Activate submit button on comment form
   activateButton(event){
       if(event.target.form[3].value){
         this.setState({ disabled: false })
     }
   }//activateButton()
 
+  //Creates comment object and sends it to the server
   handleComment(event) {
     console.log("L69 comment-form ", event.target);
     event.preventDefault()
@@ -92,6 +98,9 @@ class Post extends Component {
     this.updatePost()
   }
 
+  // ====== Identify Modal =====
+
+  // Opens Identify Modal on Edit Post button click.
   openIdentifyModal(event){
     if(this.props.user_login === "" || _.isEmpty(this.props.user_login)){
       this.props.openLoginModal()
@@ -101,10 +110,48 @@ class Post extends Component {
     }
   }//openIdentifyModal()
 
+  // ========== Edit comment Modal =========
+  componentDidMount() {
+    Modal.setAppElement(".home-page-body")
+  }
+
+  handleEditCommentModalInput(event) {
+    event.preventDefault()
+
+    let new_comment = this.state.comment_to_edit
+    new_comment.timestamp = Date.now()
+    new_comment.body = event.target[1].value
+
+    this.props.submitEditedComment(new_comment)
+
+    this.closeEditCommentModal()
+
+  }
+
+  //This has to be in store so I can subscribe <Comment> for actions?
+  openEditCommentModal(comment){
+    if(this.props.user_login === "" || _.isEmpty(this.props.user_login)){
+      this.props.openLoginModal()
+    }
+
+    this.setState({
+      comment_to_edit: comment,
+      edit_comment_modal_open: true
+    })
+  }
+
+  closeEditCommentModal(){
+    this.setState({
+      comment_to_edit: {},
+      edit_comment_modal_open: false
+    })
+    this.props.cancelEditComment()
+  }
+
   render(){
 
-    console.log("L128 post this.state ", this.state);
-    console.log("L129 post this.props ", this.props);
+    // console.log("L128 post this.state ", this.state);
+    // console.log("L129 post this.props ", this.props);
 
   const { post, comments } = this.props
   let timestamp
@@ -226,7 +273,12 @@ class Post extends Component {
                 comments.map(comment => {
                   return  (
                     <li key={comment.id}>
-                      <Comment comment_data={comment}/>
+                      <Comment
+                        comment_data={comment}
+                        openEdit={(comment) =>
+                          this.openEditCommentModal(comment)
+                        }
+                      />
                     </li>
                   )
                 })
@@ -238,21 +290,22 @@ class Post extends Component {
           <Modal
             className="modal"
             overlayClassName="overlay"
-            isOpen={this.props.open_login_modal}
-            onRequestClose={() => this.props.closeLoginModal()}
+            isOpen={this.props.user_login && this.state.edit_comment_modal_open}
+            onRequestClose={() => this.closeEditModal()}
             style={customStyle}
           >
             <form
               className="modal-login-form"
-              onSubmit={(event) => this.handleModalInput(event)}
+              onSubmit={(event) => this.handleEditCommentModalInput(event)}
             >
               <fieldset className="modal-fieldset">
-              <legend>Please Identify</legend>
-              <input
-                id="modal-user-login-input"
-                type="text"
-                placeholder="Any ID Will Do"
-              />
+              <legend>Edit comment</legend>
+              <textarea
+                name="edit-comment"
+                rows="4"
+                cols="80"
+                defaultValue={this.state.comment_to_edit.body}
+                ></textarea>
               <button
                 className="modal-btn"
                 type="submit"
@@ -262,7 +315,7 @@ class Post extends Component {
               </button>
               <button
                 className="modal-btn"
-                onClick={() => this.props.closeLoginModal()}
+                onClick={() => this.closeEditCommentModal()}
               >
                 <Fa.FaClose size={25}/>
               </button>
@@ -293,7 +346,9 @@ function mapDispatchToProps(dispatch) {
     deletePost: (post_id) => dispatch(deletePostThunk(post_id)),
     submitComment: (comment) => dispatch(submitCommentThunk(comment)),
     openLoginModal: () => dispatch(openLoginModal()),
-    getPostToEdit: (post_id) => dispatch(getPostToEditThunk(post_id))
+    getPostToEdit: (post_id) => dispatch(getPostToEditThunk(post_id)),
+    submitEditedComment: (comment) => dispatch(submitEditedCommentThunk(comment)),
+    cancelEditComment: () => dispatch(cancel_edit_comment())
   }
 }
 

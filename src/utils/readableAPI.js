@@ -236,7 +236,10 @@ PUT /comments/:id
 export const editComment = (comment) => (
   fetch(`${URL}/comments/${comment.id}`, {
     headers: headers,
-    body: JSON.stringify(comment.body),
+    body: JSON.stringify({
+      timestamp: comment.timestamp,
+      body: comment.body
+    }),
     method: "PUT"
   } )
   .then( (res) => res.json())

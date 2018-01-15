@@ -6,15 +6,6 @@ import { voteOnCommentThunk, deleteCommentThunk } from '../actions'
 
 class Comment extends Component {
 
-  // state={
-  //   comment_data: {}
-  // }
-
-  componentWillReceiveProps(){
-    //update vote count
-  }
-
-
   render() {
 
     // console.log("L12 Comment ", this.props)
@@ -53,7 +44,9 @@ class Comment extends Component {
           </div>
         </div>
         <div className="edit-tools">
-          <a ><Fa.FaEdit className="edit-btn" size={25} /></a>
+          <a
+            onClick={() => this.props.openEdit(comment_data)}
+          ><Fa.FaEdit className="edit-btn" size={25} /></a>
           <a
             onClick={() => this.props.deleteComment(comment_data.id)}
           ><Fa.FaTrashO className="delete-btn" size={25} /></a>

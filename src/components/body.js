@@ -26,7 +26,6 @@ state = {
 
   render() {
 
-    console.log("L24 body = ", this.props)
     const { current_category } = this.props
 
     if(!(_.isEmpty(current_category))) {

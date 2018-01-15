@@ -18,6 +18,8 @@ export const GET_COMMENT_TO_EDIT = "GET_COMMENT_TO_EDIT"
 export const SUBMIT_EDITED_COMMENT = "SUBMIT_EDITED_COMMENT"
 export const CANCEL_EDIT_COMMENT = "CANCEL_EDIT_COMMENT"
 export const DELETE_COMMENT = "DELETE_COMMENT"
+// export const OPEN_EDIT_COMMENT_MODAL = "OPEN_EDIT_COMMENT_MODAL"
+// export const CLOSE_EDIT_COMMENT_MODAL = "CLOSE_EDIT_COMMENT_MODAL"
 // ====== MODAL ======
 export const OPEN_LOGIN_MODAL = "OPEN_LOGIN_MODAL"
 export const CLOSE_LOGIN_MODAL = "CLOSE_LOGIN_MODAL"
@@ -181,6 +183,21 @@ export function deletePostThunk(post_id){
   }
 }
 // ======== COMMENTS SECTION ============
+
+// // =========== Comment Edit Modal ============
+// export function openEditCommentModal(){
+//   return {
+//     type: OPEN_EDIT_COMMENT_MODAL,
+//     edit_comment_modal_open: true
+//   }
+// }
+//
+// export function closeEditCommentModal(){
+//   return {
+//     type: CLOSE_EDIT_COMMENT_MODAL,
+//     edit_comment_modal_open: true
+//   }
+// }
 
 // Get all comments of a post that you are viewing
 export function getSelectPostCommentsThunk(post_id) {
