@@ -28,7 +28,6 @@ class Create extends Component {
     if(event.target.form[1].value !== "Select category"
         && event.target.form[2].value
         && event.target.form[3].value){
-        console.log("L27 disabled: false ", this.state);
         this.setState({disabled: false})
       } else {
         this.setState({disabled: true})

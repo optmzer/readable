@@ -133,7 +133,12 @@ option {
 .post-info h3{
 }
 
-.comments-count {
+.comments-count{
+  border-left-color: white 2px solid;
+}
+
+.comments-count-icon {
+padding: 0 .5em 0 1em;
 }
 
 .edit-tools {

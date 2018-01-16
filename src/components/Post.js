@@ -69,7 +69,6 @@ class Post extends Component {
 
   //Creates comment object and sends it to the server
   handleComment(event) {
-    console.log("L69 comment-form ", event.target);
     event.preventDefault()
       if(event.target[3].value){
         //assemble comment object to send to server
@@ -150,9 +149,6 @@ class Post extends Component {
 
   render(){
 
-    // console.log("L128 post this.state ", this.state);
-    // console.log("L129 post this.props ", this.props);
-
   const { post, comments } = this.props
   let timestamp
   var options = { weekday: 'short',
@@ -172,10 +168,12 @@ class Post extends Component {
               <div className="voting-block">
                 <a className="vote-up"
                   onClick={() => this.props.voteOnPost(post.id, "upVote")}
+                  title="Vote Up"
                 ><Fa.FaChevronUp size={22}/></a>
                 <div className="vote-count">{post.voteScore}</div>
                 <a className="vote-down"
                   onClick={() => this.props.voteOnPost(post.id, "downVote")}
+                  title="Vote Down"
                 ><Fa.FaChevronDown size={22}/></a>
               </div>
               <span className="user-avatar">
@@ -190,23 +188,27 @@ class Post extends Component {
                 </div>
                 <div>
                   <p>
-                    <span className="published-time">published on Time: {`${timestamp}`} | </span>
+                    <span className="published-time">
+                      Published: {`${timestamp}`} |</span>
                     <span className="comments-count">
-                      Comment count: {post.commentCount}
+                      <Fa.FaComments className="comments-count-icon" size={30}/>
                     </span>
+                    <span>{post.commentCount}</span>
                   </p>
                 </div>
               </div>
               <div className="edit-tools">
                 <Link
                   to="/create"
+                  title="Edit Post"
                   onClick={() => this.props.getPostToEdit(post.id)}
                 >
-                  <Fa.FaEdit className="edit-btn" size={25} />
+                  <Fa.FaEdit className="edit-btn" size={30} />
                 </Link>
                 <a
                   onClick={() => this.props.deletePost(post.id)}
-                  ><Fa.FaTrashO className="delete-btn" size={25} />
+                  title="Delete Post"
+                  ><Fa.FaTrashO className="delete-btn" size={30} />
                 </a>
               </div>
             </div>

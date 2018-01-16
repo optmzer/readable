@@ -73,11 +73,6 @@ function sort_posts_reducer(state, action) {
 }//sort_posts_reducer()
 
 
-//CRAPY NAMING CONVENTION ALERT!!!
-//state- is not an app state state is DATA from action!!!
-/**this reducer receives state of the element its action is signed to
-that is post-header.
-*/
 function vote_on_post_reducer(state, action) {
   switch (action.type) {
     case VOTE_POST:
@@ -150,11 +145,6 @@ function select_post_reducer(state, action) {
         }
       }
       return {...state}
-    // case GET_POST_TO_EDIT:
-    //   return {
-    //     ...state,
-    //     post_to_edit: action.post_to_edit
-    //   }
     case DELETE_POST:
       if(state.post && action.post.id === state.post.id){
         return {
@@ -169,9 +159,6 @@ function select_post_reducer(state, action) {
 }
 
 function get_post_to_edit_reducer(state, action) {
-  // console.log("L153 get_post_to_edit_reducer state= ", state);
-  // console.log("L154 get_post_to_edit_reducer action= ", action);
-
   switch (action.type) {
     case GET_POST_TO_EDIT:
       return {
@@ -221,9 +208,6 @@ function selected_post_comments_reducer(state, action) {
 }
 
 function get_comment_to_edit_reducer(state, action) {
-  // console.log("L221 get_comment_to_edit_reducer state= ", state);
-  // console.log("L222 get_comment_to_edit_reducer action= ", action);
-
   switch (action.type) {
     case GET_COMMENT_TO_EDIT:
       return{

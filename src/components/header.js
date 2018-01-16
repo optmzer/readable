@@ -128,6 +128,7 @@ class Header extends Component {
                 <NavLink
                   exact to="/"
                   onClick={ () => this.getCategory("home")}
+                  title="Home"
                 >
                   <Fa.FaHome size={30}/>
                 </NavLink>
@@ -136,6 +137,7 @@ class Header extends Component {
                 <NavLink
                   exact to="/udacity"
                   onClick={ () => this.getCategory("udacity")}
+                  title="Category"
                 >
                   Udacity
                 </NavLink>
@@ -144,6 +146,7 @@ class Header extends Component {
                 <NavLink
                   exact to="/react"
                   onClick={ () => this.getCategory("react")}
+                  title="Category"
                 >
                   React
                 </NavLink>
@@ -152,6 +155,7 @@ class Header extends Component {
                 <NavLink
                   exact to="/redux"
                   onClick={ () => this.getCategory("redux")}
+                  title="Category"
                 >
                   Redux
                 </NavLink>
@@ -159,6 +163,7 @@ class Header extends Component {
               <li>
                 <NavLink
                   exact to="/create"
+                  title="Create Post"
                 >
                   <Fa.FaEdit size={30} />
                 </NavLink>

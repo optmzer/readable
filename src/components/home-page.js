@@ -8,14 +8,7 @@ import Create from './create'
 
 class HomePage extends Component {
 
-  componentWillMount() {
-    // this.props.selectCategoryThunk("home")
-  }
-
   render(){
-
-    // console.log("L40 HomePage this.props = ", this.props);
-    // console.log("L41 HomePage React this.state = ", this.state);
 
     return(
       <div>

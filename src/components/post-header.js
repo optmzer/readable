@@ -49,35 +49,41 @@ class PostHeader extends Component {
           <div className="voting-block">
             <a
               onClick={() => this.props.voteOnPost(post_id, "upVote")}
+              title="Vote Up"
             ><Fa.FaChevronUp className="vote-up" size={22}/></a>
             <div className="vote-count">{voteScore}</div>
             <a
               onClick={() => this.props.voteOnPost(post_id, "downVote")}
+              title="Vote Down"
             ><Fa.FaChevronDown className="vote-down" size={22}/></a>
           </div>
 
             <span className="user-avatar">
               <Link
                 to={`/${category}/${post_id}`}
+                title="Open Post"
               ><Fa.FaFileImageO size={75}/></Link>
             </span>
             <div className="post-info">
               <div>
                 <Link
                   to={`/${category}/${post_id}`}
+                  title="Open Post"
                 >{author}</Link>
               </div>
               <div>
                 <Link
                   to={`/${category}/${post_id}`}
+                  title="Open Post"
                 ><h3>{title}</h3>
                 </Link>
               </div>
               <div>
                 <span className="published-time">
-                  published on Time: {`${timestamp}`} | </span>
+                  Published: {`${timestamp}`} | </span>
                 <span className="comments-count">
-                  Comment count: {commentCount}
+                  <Fa.FaComments className="comments-count-icon" size={30}/>
+                    <span>{commentCount}</span>
                 </span>
               </div>
             </div>
@@ -86,10 +92,12 @@ class PostHeader extends Component {
             <Link
               className="edit-btn"
               to="/create"
+              title="Edit Post"
               onClick={() => this.props.getPostToEdit(post_id)}
             ><Fa.FaEdit className="edit-btn" size={30} /></Link>
             <a
               className="delete-btn"
+              title="Delete Post"
               onClick={() => this.props.deletePost(post_id)}
             ><Fa.FaTrashO className="delete-btn" size={30} /></a>
           </div>

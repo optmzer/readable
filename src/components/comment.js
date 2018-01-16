@@ -8,8 +8,6 @@ class Comment extends Component {
 
   render() {
 
-    // console.log("L12 Comment ", this.props)
-
     const { comment_data } = this.props
     //Date options
     var options = { weekday: 'short',
@@ -24,12 +22,16 @@ class Comment extends Component {
       <div className="comment">
       <div className="comment-header">
         <div className="voting-block">
-          <a className="vote-up"
-          onClick={() => this.props.voteOnCommentThunk(comment_data.id, "upVote")}
+          <a
+            className="vote-up"
+            onClick={() => this.props.voteOnCommentThunk(comment_data.id, "upVote")}
+            title="Vote Up"
             ><Fa.FaChevronUp size={15} /></a>
           <div className="vote-count">{comment_data.voteScore}</div>
-          <a className="vote-down"
+          <a
+            className="vote-down"
             onClick={() => this.props.voteOnCommentThunk(comment_data.id, "downVote")}
+            title="Vote Down"
           ><Fa.FaChevronDown size={15}/></a>
         </div>
         <span className="user-avatar">
@@ -46,9 +48,11 @@ class Comment extends Component {
         <div className="edit-tools">
           <a
             onClick={() => this.props.openEdit(comment_data)}
+            title="Edit Comment"
           ><Fa.FaEdit className="edit-btn" size={25} /></a>
           <a
             onClick={() => this.props.deleteComment(comment_data.id)}
+            title="Delete Comment"
           ><Fa.FaTrashO className="delete-btn" size={25} /></a>
         </div>
       </div>
@@ -62,12 +66,6 @@ class Comment extends Component {
   }//render()
 }//class Comments
 
-// function mapStateToProps(state) {
-//   const { vote_on_comment_reducer } = state
-//   return{
-//     voted_comment: vote_on_comment_reducer.voted_comment
-//   }
-// }
 
 function mapDispatchToProps(dispatch){
   return {
