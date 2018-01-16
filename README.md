@@ -5,14 +5,14 @@
 ## Required
 
     Requires back end server to run this app from here
-    <a href="https://github.com/udacity/reactnd-project-readable-starter">https://github.com/udacity/reactnd-project-readable-starter</a>
+    https://github.com/udacity/reactnd-project-readable-starter
     The link contains server API manual as well.
 
 ##  Start Developing
 
     To get started developing right away:
 
-    Install and start the API server from [https://github.com/udacity/reactnd-project-readable-starter](https://github.com/udacity/reactnd-project-readable-starter)
+    Install and start the API server from https://github.com/udacity/reactnd-project-readable-starter
         - `cd api-server`
         - `npm install`
         - `node server`
