@@ -1,38 +1,36 @@
-This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).
+# Readable
+
+    Udacity study project for React nano-degree. A front-end copycat of Redit that allows to post anonymous posts and comments. Includes only 3 categories of posts. Implements Redux for state management.
 
 ## Required
 
     Requires back end server to run this app from here
-    https://github.com/udacity/reactnd-project-readable-starter
+    [https://github.com/udacity/reactnd-project-readable-starter](https://github.com/udacity/reactnd-project-readable-starter)
     The link contains server API manual as well.
 
 ##  Start Developing
 
     To get started developing right away:
 
-    Install and start the API server
-        cd api-server
-        npm install
-        node server
-    In another terminal window, use Create React App to scaffold out the front-end
-        create-react-app frontend
-        cd frontend
-        npm start
+    Install and start the API server from [https://github.com/udacity/reactnd-project-readable-starter](https://github.com/udacity/reactnd-project-readable-starter)
+        - `cd api-server`
+        - `npm install`
+        - `node server`
 
+    In another terminal window
+        clone or fork the repo
+        navigate into the folder containing this project
+        install dependencies with
+        - `npm install`
+        start the app with
+        - `npm start`. the app starts on a single command.
 
-
-## To start :
-
-    clone the repo
-    install npm (node packet manager)
-    navigate into the folder containing the project
-    start the development server with npm start. the app starts on a singl connamd.
-
-
+    Server runs/listens on  http://localhost:3001
+    The app runs on         http://localhost:3000
 
 ## Folder Structure
 
-project should looks like this:
+After cloning the app should looks like this:
 
 ```
 my-app/
@@ -73,6 +71,10 @@ my-app/
   README.md
 
 ```
+
+## Built With
+
+    This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).
 
 For the project to build, **these files must exist with exact filenames**:
 
@@ -126,3 +128,16 @@ If you aren’t satisfied with the build tool and configuration choices, you can
 Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
 
 You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+
+## Contributing
+
+Please read CONTRIBUTING.md for details on our code of conduct, and the process for submitting pull requests to us.
+
+## Versioning
+
+We use SemVer for versioning. For the versions available, see the tags on this repository.
+
+## Authors
+
+    Alexander Frolov - The Readable React app front-end
+    Udacity - server side, registerServiceWorker.js
