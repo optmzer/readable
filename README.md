@@ -1,9 +1,38 @@
 This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).
 
+## Required
+
+    Requires back end server to run this app from here
+    https://github.com/udacity/reactnd-project-readable-starter
+    The link contains server API manual as well.
+
+##  Start Developing
+
+    To get started developing right away:
+
+    Install and start the API server
+        cd api-server
+        npm install
+        node server
+    In another terminal window, use Create React App to scaffold out the front-end
+        create-react-app frontend
+        cd frontend
+        npm start
+
+
+
+## To start :
+
+    clone the repo
+    install npm (node packet manager)
+    navigate into the folder containing the project
+    start the development server with npm start. the app starts on a singl connamd.
+
+
 
 ## Folder Structure
 
-After creation, your project should look like this:
+project should looks like this:
 
 ```
 my-app/
