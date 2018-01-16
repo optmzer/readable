@@ -5,7 +5,7 @@
 ## Required
 
     Requires back end server to run this app from here
-    [https://github.com/udacity/reactnd-project-readable-starter](https://github.com/udacity/reactnd-project-readable-starter)
+    <a href="https://github.com/udacity/reactnd-project-readable-starter">https://github.com/udacity/reactnd-project-readable-starter</a>
     The link contains server API manual as well.
 
 ##  Start Developing
