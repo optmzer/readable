@@ -1,35 +1,35 @@
 # Readable
 
-    Udacity study project for React nano-degree.
-    A front-end copycat of Redit that allows to post anonymous posts
-    and comments. Includes only 3 categories of posts. Implements Redux
-    for state management.
+Udacity study project for React nano-degree.
+A front-end copycat of Redit that allows to post anonymous posts
+and comments. Includes only 3 categories of posts. Implements Redux
+for state management.
 
 ## Required
 
-    Requires back end server to run this app from here
-    https://github.com/udacity/reactnd-project-readable-starter
-    The link contains server API manual as well.
+Requires back end server to run this app from here
+[https://github.com/udacity/reactnd-project-readable-starter](https://github.com/udacity/reactnd-project-readable-starter)
+The link contains server API manual as well.
 
 ##  Start Developing
 
-    To get started developing right away:
+To get started developing right away:
 
-    Install and start the API server from https://github.com/udacity/reactnd-project-readable-starter
-        - `cd api-server`
-        - `npm install`
-        - `node server`
+Install and start the API server from [https://github.com/udacity/reactnd-project-readable-starter](https://github.com/udacity/reactnd-project-readable-starter)
+    - `cd api-server`
+    - `npm install`
+    - `node server`
 
-    In another terminal window
-        clone or fork the repo
-        navigate into the folder containing this project
-        install dependencies with
-        - `npm install`
-        start the app with
-        - `npm start`. the app starts on a single command.
+In another terminal window
+    clone or fork the repo
+    navigate into the folder containing this project
+    install dependencies with
+    - `npm install`
+    start the app with
+    - `npm start`. the app starts on a single command.
 
-    Server runs/listens on  http://localhost:3001
-    The app runs on         http://localhost:3000
+Server runs/listens on  http://localhost:3001
+The app runs on         http://localhost:3000
 
 ## Folder Structure
 
@@ -77,8 +77,8 @@ my-app/
 
 ## Built With
 
-    This project was bootstrapped with
-    [Create React App](https://github.com/facebookincubator/create-react-app).
+This project was bootstrapped with
+[Create React App](https://github.com/facebookincubator/create-react-app).
 
 For the project to build, **these files must exist with exact filenames**:
 
