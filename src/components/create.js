@@ -13,9 +13,7 @@ import {
 
 
 /**
- * bug - Submit button will be disabled until the state is updated
- but it will never will be updated until it is submitted.
- update state by typing in inputs.
+ *Create/Edit post page.
  */
 
 class Create extends Component {
@@ -24,6 +22,7 @@ class Create extends Component {
     disabled: true,
   }
 
+  //activates button when all necessary fields have values in them
   activateButton(event) {
     if(event.target.form[1].value !== "Select category"
         && event.target.form[2].value
@@ -34,8 +33,8 @@ class Create extends Component {
       }
   }
 
+  //handles input of the create post form
   handleForm(event){
-
     event.preventDefault()
     if(event.target[1].value !== "Select category"
         && event.target[2].value
@@ -77,11 +76,14 @@ class Create extends Component {
 
     const { post_to_edit } = this.props
 
+    //sets default values
     let post_author = this.props.user_login,
         post_title,
         post_category = "Select category",
         post_body
 
+    //if post is in edit mode fills in default values with
+    //values of existing post
     if(post_to_edit) {
       post_author = post_to_edit.author
       post_title = post_to_edit.title

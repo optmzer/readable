@@ -1,14 +1,10 @@
 import React, { Component } from 'react'
 import PostHeader from './post-header'
 import { connect } from 'react-redux'
-import { selectCategoryThunk, sortPosts } from '../actions'
+import { selectCategoryThunk } from '../actions'
 import sortBy from 'sort-by'
-import _ from 'underscore'
-// import Modal from 'react-modal'
-
-/**
-*Make modal for post edit button. to see how it works.
-*/
+import * as _ from 'underscore'
+import escapeRegExp from 'escape-string-regexp'
 
 class Body extends Component {
 
@@ -26,17 +22,29 @@ state = {
 
   render() {
 
-    const { current_category } = this.props
+    const { current_category, search_key_word } = this.props
+    let showing_posts
 
-    if(!(_.isEmpty(current_category))) {
-      current_category.sort(sortBy(this.props.sort_param))
+    //sort by value
+    if(!_.isEmpty(current_category)) {
+      showing_posts = current_category.sort(sortBy(this.props.sort_param))
+    }
+
+    //search by author, title
+    if(!_.isEmpty(search_key_word)) {
+      const match = new RegExp(escapeRegExp(search_key_word), "i")
+      showing_posts = current_category.filter(post =>
+        match.test(post.title) || match.test(post.author)
+      )
+    } else {
+      showing_posts = current_category
     }
 
     return(
       <div className="home-page-body">
         <ul>
-          { !(_.isEmpty(current_category)) &&
-            current_category.map((post) => (
+          { !(_.isEmpty(showing_posts)) &&
+            showing_posts.map((post) => (
               <li key={post.id}>
                 <PostHeader
                   post_data={{
@@ -60,16 +68,17 @@ state = {
 
 function mapStateToProps(state) {
   const { category_posts_reducer, sort_posts_reducer } = state
+  const { set_search_key_word_reducer } = state
   return {
     current_category: category_posts_reducer.category_posts,
-    sort_param: sort_posts_reducer.sort_param
+    sort_param: sort_posts_reducer.sort_param,
+    search_key_word: set_search_key_word_reducer.search_key_word
   }
 }//mapStateToProps()
 
 function mapDispatchToProps(dispatch) {
   return {
     selectCategoryThunk: (category) => dispatch(selectCategoryThunk(category)),
-    sortPosts: (sort_param) => dispatch(sortPosts(sort_param)),
   }
 }//mapDispatchToProps()
 

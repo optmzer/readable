@@ -22,6 +22,8 @@ export const DELETE_COMMENT = "DELETE_COMMENT"
 export const OPEN_LOGIN_MODAL = "OPEN_LOGIN_MODAL"
 export const CLOSE_LOGIN_MODAL = "CLOSE_LOGIN_MODAL"
 export const SET_USER_LOGIN = "SET_USER_LOGIN"
+// ====== SEARCH ======
+export const SET_SEARCH_KEY_WORD = "SET_SEARCH_KEY_WORD"
 
 // ====== MODAL - "Identify" Author/user ======
 export function openLoginModal() {
@@ -51,6 +53,14 @@ export function sortPosts(sort_param){
   return {
     type: SORT_POSTS,
     sort_param
+  }
+}
+
+// ====== SEARCH KEY WORD ======
+export function set_search_key_word(key_word){
+  return{
+    type: SET_SEARCH_KEY_WORD,
+    key_word
   }
 }
 

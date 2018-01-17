@@ -17,12 +17,24 @@ import {
   DELETE_COMMENT,
   OPEN_LOGIN_MODAL,
   CLOSE_LOGIN_MODAL,
-  SET_USER_LOGIN
+  SET_USER_LOGIN,
+  SET_SEARCH_KEY_WORD
 } from '../actions'
 
-/**
- */
 
+//sets search_key_word for post find by title, author
+function set_search_key_word_reducer(state, action){
+  switch (action.type) {
+    case SET_SEARCH_KEY_WORD:
+      return {
+        search_key_word: action.key_word
+      }
+    default:
+      return {...state}
+  }
+}
+
+//sets user_login from user login Modal
 function user_login_reducer(state, action) {
   switch (action.type) {
     case OPEN_LOGIN_MODAL:
@@ -45,6 +57,8 @@ function user_login_reducer(state, action) {
   }
 }
 
+//sets values for sorting posts in the category
+//by popular, title, voteScore, author
 function sort_posts_reducer(state, action) {
   switch (action.type) {
     case SORT_POSTS:
@@ -66,13 +80,11 @@ function sort_posts_reducer(state, action) {
             }
       }//switch
     default:
-      return {
-        ...state
-      }
+      return {...state}
   }
 }//sort_posts_reducer()
 
-
+//sets values for voting on posts
 function vote_on_post_reducer(state, action) {
   switch (action.type) {
     case VOTE_POST:
@@ -80,14 +92,12 @@ function vote_on_post_reducer(state, action) {
         vote_post: action.post
       }
     default:
-      return {
-        ...state
-      }
+      return {...state}
   }
 }
 
-//this is how it is going to appear in redux store
-//category_posts_reducer: {{category},{category_posts}}
+//sets posts to show in category by selectig category name,
+//if category is now selected category = home. showing all posts.
 function category_posts_reducer(state, action) {
   switch (action.type) {
     case SELECT_CATEGORY:
@@ -119,7 +129,7 @@ function category_posts_reducer(state, action) {
   }
 }//category_posts_reducer()
 
-//Shows the post that was selected
+//Shows a post that was selected
 function select_post_reducer(state, action) {
   switch (action.type) {
     case SELECT_POST:
@@ -158,6 +168,7 @@ function select_post_reducer(state, action) {
   }
 }
 
+//sets values for a post that was selected for editing
 function get_post_to_edit_reducer(state, action) {
   switch (action.type) {
     case GET_POST_TO_EDIT:
@@ -176,6 +187,7 @@ function get_post_to_edit_reducer(state, action) {
   }
 }
 
+//sets list of comments for a post that was selected for reading
 function selected_post_comments_reducer(state, action) {
   switch (action.type) {
     case GET_SELECTED_POST_COMMENTS:
@@ -207,6 +219,7 @@ function selected_post_comments_reducer(state, action) {
   }
 }
 
+//sets comment values to edit
 function get_comment_to_edit_reducer(state, action) {
   switch (action.type) {
     case GET_COMMENT_TO_EDIT:
@@ -223,9 +236,6 @@ function get_comment_to_edit_reducer(state, action) {
   }
 }
 
-/**In Redux state management extension content of combineReducers
- *is shown as state.
- */
 export default combineReducers({
   category_posts_reducer,
   select_post_reducer,
@@ -234,5 +244,6 @@ export default combineReducers({
   selected_post_comments_reducer,
   get_post_to_edit_reducer,
   user_login_reducer,
-  get_comment_to_edit_reducer
+  get_comment_to_edit_reducer,
+  set_search_key_word_reducer
 })

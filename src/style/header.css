@@ -65,7 +65,7 @@ option {
 
 .categories {
   grid-row: 2/3;
-  grid-column: 4/13;
+  grid-column: 4/9;
 }
 
 
@@ -82,6 +82,36 @@ option {
   min-width: 60px;
   text-align: center;
 }
+
+.search-bar{
+  margin: 0;
+  padding: 0;
+  grid-row: 2/3;
+  grid-column: 9/13;
+  /* background-color: yellow; */
+}
+
+ .search-bar input {
+  vertical-align: middle;
+  margin: 0;
+  padding: 0;
+  width: 60%;
+  /* height: 1.3em; */
+  font-size: 1.2em;
+}
+
+.cancel-search{
+  color: white;
+}
+
+.search-bar button {
+  padding: 0 ;
+  margin: 0;
+  width: 3em;
+  height: 3em;
+  background-color: inherit;
+}
+
 
 /* main-page */
 .main-page {

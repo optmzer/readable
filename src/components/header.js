@@ -10,7 +10,8 @@ import {
   sortPosts,
   setUserLogin,
   openLoginModal,
-  closeLoginModal
+  closeLoginModal,
+  set_search_key_word
 } from '../actions'
 
 //style for user login Modal
@@ -41,11 +42,22 @@ let customStyle = {
 }//customStyle
 
 /**
-*Header for the App. Has nav controls and sort selector.
+*Header for the App. Has nav controls and sort selector plus search bar.
 */
 
 class Header extends Component {
 
+  //sets search value for post search
+  setSearchValue(event) {
+    this.props.setSearchKeyWord(event.target.value)
+  }
+
+  //resets search value to empty string
+  resetSearch(){
+    this.props.setSearchKeyWord("")
+  }
+
+  //gets category name from NavLink
   getCategory(category){
     switch (category) {
       case "react":
@@ -64,11 +76,11 @@ class Header extends Component {
     this.props.selectCategoryThunk(category)
   }//getCategory()
 
+  //gets value from sort selector to sort posts
   getSortSelection(selection) {
     this.props.sortPosts(selection)
     this.setState({selection})
   }//getSortSelection()
-
 
   componentWillMount() {
     if(this.props.select_value){
@@ -83,6 +95,7 @@ class Header extends Component {
     Modal.setAppElement(".App-header")
   }
 
+  //opens Identify modal if user_login is not set or empty
   openIdentifyModal(event){
     if(this.props.user_login === "" || _.isEmpty(this.props.user_login)){
       this.props.openLoginModal()
@@ -92,16 +105,13 @@ class Header extends Component {
     }
   }//openIdentifyModal()
 
+  //handles form of moda component
   handleModalInput(event) {
     event.preventDefault()
     this.props.setUserLogin(event.target[1].value)
-    // this.closeIdentifyModal()
   }
 
-
   render() {
-    // console.log("L47 header ", this.props);
-    // console.log("L48 header ", this.state);
 
     return(
       <header className="App-header">
@@ -170,6 +180,20 @@ class Header extends Component {
               </li>
             </ul>
           </nav>
+          <form className="search-bar">
+            <input
+              type="text"
+              defaultValue={this.props.search_key_word}
+              placeholder="Search key word..."
+              onChange={(event) => this.setSearchValue(event)}
+            />
+            <button
+              title="Reset search"
+              onClick={() => this.resetSearch()}
+            >
+              <Fa.FaClose className="cancel-search" size={25}/>
+            </button>
+          </form>
         </div>
         <Modal
           className="modal"
@@ -212,10 +236,12 @@ class Header extends Component {
 
 function mapStateToProps(state) {
   const {sort_posts_reducer,user_login_reducer} = state
+  const {set_search_key_word_reducer} = state
   return {
     select_value: sort_posts_reducer.select_value,
     user_login: user_login_reducer.user_login,
-    open_login_modal: user_login_reducer.open_login_modal
+    open_login_modal: user_login_reducer.open_login_modal,
+    search_key_word: set_search_key_word_reducer.search_key_word
   }
 }
 
@@ -225,7 +251,8 @@ function mapDispatchToProps(dispatch) {
     sortPosts: (sort_param) => {dispatch(sortPosts(sort_param))},
     setUserLogin: (login) => dispatch(setUserLogin(login)),
     closeLoginModal: () => dispatch(closeLoginModal()),
-    openLoginModal: () => dispatch(openLoginModal())
+    openLoginModal: () => dispatch(openLoginModal()),
+    setSearchKeyWord: (key_word) => dispatch(set_search_key_word(key_word))
   }
 }
 
