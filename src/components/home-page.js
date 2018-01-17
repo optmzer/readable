@@ -6,6 +6,7 @@ import Footer from './footer'
 import Post from './post'
 import Create from './create'
 
+
 class HomePage extends Component {
 
   render(){

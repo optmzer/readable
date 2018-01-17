@@ -20,6 +20,7 @@ import {
   cancel_edit_comment
 } from '../actions'
 
+
 //style for user login Modal
 let customStyle = {
   overlay : {
@@ -157,7 +158,7 @@ class Post extends Component {
                   month: 'short',
                   day: 'numeric',
                   hour12: false }
-  //translate date into local format                
+  //translate date into local format
   if(post) {
     timestamp = new Date(post.timestamp).toLocaleTimeString("en-NZ", options)
   }
