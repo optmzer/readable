@@ -16,17 +16,18 @@ The link contains server API manual as well.
 To get started developing right away:
 
 Install and start the API server from [https://github.com/udacity/reactnd-project-readable-starter](https://github.com/udacity/reactnd-project-readable-starter)
-    - `cd api-server`
-    - `npm install`
-    - `node server`
+
+- `cd api-server`
+- `npm install`
+- `node server`
 
 In another terminal window
-    clone or fork the repo
-    navigate into the folder containing this project
-    install dependencies with
-    - `npm install`
-    start the app with
-    - `npm start`. the app starts on a single command.
+clone or fork the repo
+navigate into the folder containing this project
+install dependencies with
+- `npm install`
+start the app with
+- `npm start`. the app starts on a single command.
 
 Server runs/listens on  http://localhost:3001
 The app runs on         http://localhost:3000
