@@ -4,6 +4,7 @@ import * as Fa from 'react-icons/lib/fa'
 import * as _ from 'underscore'
 import Modal from 'react-modal'
 import Comment from './comment'
+import sortBy from 'sort-by'
 import '../style/post.css'
 import '../style/header.css'
 import { connect } from 'react-redux'
@@ -156,9 +157,13 @@ class Post extends Component {
                   month: 'short',
                   day: 'numeric',
                   hour12: false }
+  //translate date into local format                
   if(post) {
     timestamp = new Date(post.timestamp).toLocaleTimeString("en-NZ", options)
   }
+
+  //sort comments by dane New to Old
+  if(comments) {comments.sort(sortBy("-timestamp"))}
 
   return(
         <div className="home-page-body">
