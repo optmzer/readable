@@ -274,7 +274,7 @@ class Post extends Component {
             className="modal"
             overlayClassName="overlay"
             isOpen={this.props.user_login && this.state.edit_comment_modal_open}
-            onRequestClose={() => this.closeEditModal()}
+            onRequestClose={() => this.closeEditCommentModal()}
             style={customStyle}
             >
             <form
