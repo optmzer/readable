@@ -243,7 +243,7 @@ class Post extends Component {
                           id="comment-textarea"
                           name="post-input"
                           rows="4"
-                          cols="80"></textarea>
+                          cols="82"></textarea>
                       </div>
                     </fieldset>
                   </form>
