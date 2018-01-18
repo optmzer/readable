@@ -4,6 +4,7 @@ import * as Fa from 'react-icons/lib/fa'
 import * as _ from 'underscore'
 import Modal from 'react-modal'
 import Comment from './comment'
+import PostNotFound from './post_not_found'
 import sortBy from 'sort-by'
 import '../style/post.css'
 import '../style/header.css'
@@ -19,35 +20,7 @@ import {
   submitEditedCommentThunk,
   cancel_edit_comment
 } from '../actions'
-
-
-//style for user login Modal
-let customStyle = {
-  overlay : {
-    position          : 'fixed',
-    top               : 0,
-    left              : 0,
-    right             : 0,
-    bottom            : 0,
-    backgroundColor   : 'rgba(255, 255, 255, 0.1)'
-  },
-  content : {
-    position                   : 'absolute',
-    top                        : '35%',
-    left                       : '20%',
-    right                      : '20%',
-    bottom                     : '35%',
-    border                     : '1px solid #bbb',
-    background                 : '#ddd',
-    overflow                   : 'auto',
-    WebkitOverflowScrolling    : 'touch',
-    borderRadius               : '4px',
-    outline                    : 'none',
-    padding                    : '20px'
-
-  }
-}//customStyle
-
+import customStyle from '../style/edit_comment_modal_style'
 
 class Post extends Component {
 
@@ -126,7 +99,6 @@ class Post extends Component {
     this.props.submitEditedComment(new_comment)
 
     this.closeEditCommentModal()
-
   }
 
   //This has to be in store so I can subscribe <Comment> for actions?
@@ -169,7 +141,7 @@ class Post extends Component {
   return(
         <div className="home-page-body">
           {
-            !_.isEmpty(post) &&
+            !_.isEmpty(post) ?
             <div className="user-info">
               <div className="voting-block">
                 <a className="vote-up"
@@ -218,6 +190,8 @@ class Post extends Component {
                 </a>
               </div>
             </div>
+            :
+            <PostNotFound />
           }
           <div className="post-block">
             {
@@ -253,7 +227,7 @@ class Post extends Component {
                                 value="Submit"
                                 disabled={this.state.disabled}
                               >
-                                <Fa.FaCheck size={25}/>
+                                <Fa.FaPlusSquareO size={25}/>
                               </button>
                             </span>
                             <span className="input-btn">
@@ -301,17 +275,17 @@ class Post extends Component {
             isOpen={this.props.user_login && this.state.edit_comment_modal_open}
             onRequestClose={() => this.closeEditModal()}
             style={customStyle}
-          >
+            >
             <form
               className="modal-login-form"
               onSubmit={(event) => this.handleEditCommentModalInput(event)}
-            >
+              >
               <fieldset className="modal-fieldset">
               <legend>Edit comment</legend>
               <textarea
                 name="edit-comment"
                 rows="4"
-                cols="80"
+                cols="82"
                 defaultValue={this.state.comment_to_edit.body}
                 ></textarea>
               <button
@@ -335,10 +309,11 @@ class Post extends Component {
   }//render()
 }//class Post
 
-function mapStateToProps(state) {
-  const { select_post_reducer, selected_post_comments_reducer} = state
-  const { user_login_reducer } = state
-
+function mapStateToProps({
+  select_post_reducer,
+  selected_post_comments_reducer,
+  user_login_reducer
+}) {
   return {
     post: select_post_reducer.post,
     comments: selected_post_comments_reducer.comments,

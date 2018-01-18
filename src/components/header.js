@@ -13,33 +13,8 @@ import {
   closeLoginModal,
   set_search_key_word
 } from '../actions'
+import customStyle from '../style/login_modal_style'
 
-//style for user login Modal
-let customStyle = {
-  overlay : {
-    position          : 'fixed',
-    top               : 0,
-    left              : 0,
-    right             : 0,
-    bottom            : 0,
-    backgroundColor   : 'rgba(255, 255, 255, 0.75)'
-  },
-  content : {
-    position                   : 'absolute',
-    top                        : '35%',
-    left                       : '20%',
-    right                      : '20%',
-    bottom                     : '35%',
-    border                     : '1px solid #bbb',
-    background                 : '#ddd',
-    overflow                   : 'auto',
-    WebkitOverflowScrolling    : 'touch',
-    borderRadius               : '4px',
-    outline                    : 'none',
-    padding                    : '20px'
-
-  }
-}//customStyle
 
 /**
 *Header for the App. Has nav controls and sort selector plus search bar.
@@ -175,7 +150,7 @@ class Header extends Component {
                   exact to="/create"
                   title="Create Post"
                 >
-                  <Fa.FaEdit size={30} />
+                  <Fa.FaPlusSquareO size={30} />
                 </NavLink>
               </li>
             </ul>

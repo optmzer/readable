@@ -8,6 +8,11 @@
    /* grid-column: 3/12; */
 }
 
+.message-404{
+  text-align: left;
+  font-size: 1.2em;
+}
+
 .post-text {
   border-bottom: #E8491D 1px solid;
   padding-bottom: 1.5em;
