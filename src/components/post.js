@@ -223,6 +223,7 @@ class Post extends Component {
                             </span>
                             <span className="input-btn">
                               <button
+                              title="Add Comment"
                                 type="submit"
                                 value="Submit"
                                 disabled={this.state.disabled}
@@ -231,7 +232,7 @@ class Post extends Component {
                               </button>
                             </span>
                             <span className="input-btn">
-                              <button type="reset" value="Reset Form">
+                              <button title="Cancel" type="reset" value="Reset Form">
                                 <Fa.FaTrashO size={25} />
                               </button>
                             </span>
